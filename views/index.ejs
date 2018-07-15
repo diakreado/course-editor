@@ -10,5 +10,12 @@
 <body>
     <h1><%= title %></h1>
     <p><a href="/create">Add new</a></p>
+    <ul>
+        <% items.forEach(function(item) { %>
+            <li>
+                <%= item %>
+            </li>
+        <% }); %>
+    </ul>
 </body>
 </html>
