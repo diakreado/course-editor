@@ -13,6 +13,7 @@ Document = require('./models.js').Document(db);
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var create = require('./routes/create');
 
 var app = express();
 
@@ -28,6 +29,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
+app.use('/create', create);
 app.use('/users', users);
 
 /// catch 404 and forwarding to error handler

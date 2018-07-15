@@ -5,8 +5,11 @@ var config = require('../config.js');
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('index', { title: config.name_of_project });
+  res.render('create', { title: config.name_of_project });
 });
 
+router.post('/', function(req, res) {
+    console.log(req.body);
+});
 
 module.exports = router;
