@@ -1,3 +1,5 @@
 module.exports = {
-    name_of_project: 'Project wizard'
+  NAME_OF_PROJECT: "Course editor",
+  MONGO_URL: "mongodb://localhost:27017/project-editor",
+  PORT: process.env.PORT || 3000
 };
