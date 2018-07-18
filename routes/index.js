@@ -1,17 +1,18 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
 
-var config = require("../config.js");
+const config = require("../config.js");
 
-var array_of_items = [];
+const Project = require("../models/project.js");
 
 /* GET home page. */
 router.get("/", function(req, res) {
-  res.render("index", {
-    title: config.NAME_OF_PROJECT,
-    items: array_of_items
+  Project.find({}).then(projects => {
+    res.render("index", {
+      title: config.NAME_OF_PROJECT,
+      items: projects
+    });
   });
 });
 
 module.exports = router;
-module.exports.items = array_of_items;

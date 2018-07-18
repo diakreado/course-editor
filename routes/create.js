@@ -1,8 +1,8 @@
 var express = require("express");
 var router = express.Router();
 
-var config = require("../config.js");
-var index = require("./index.js");
+const config = require("../config.js");
+const index = require("./index.js");
 
 const Project = require("../models/project.js");
 
@@ -17,7 +17,7 @@ router.post("/", function(req, res) {
   Project.create({
     title: title,
     discripiton: discripiton
-  }).then(post => console.log(post._id));
+  }).then(post => console.log(post.id));
 
   res.redirect("/");
 });

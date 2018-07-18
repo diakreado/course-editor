@@ -1,14 +1,23 @@
 var mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const schema = new Schema({
-  title: {
-    type: String,
-    required: true
+const projectSchema = new Schema(
+  {
+    title: {
+      type: String,
+      required: true
+    },
+    discripiton: {
+      type: String
+    }
   },
-  discripiton: {
-    type: String
+  {
+    timestamps: true
   }
+);
+
+projectSchema.set("toJSON", {
+  virtuals: true
 });
 
-module.exports = mongoose.model("Post", schema);
+module.exports = mongoose.model("Post", projectSchema);
