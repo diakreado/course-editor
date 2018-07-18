@@ -1,12 +1,12 @@
 var mongoose = require("mongoose");
-const schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 const schema = new Schema({
   title: {
     type: String,
     required: true
   },
-  body: {
+  discripiton: {
     type: String
   }
 });

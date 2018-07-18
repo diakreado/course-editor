@@ -7,7 +7,6 @@ var array_of_items = [];
 
 /* GET home page. */
 router.get("/", function(req, res) {
-  console.log(array_of_items);
   res.render("index", {
     title: config.NAME_OF_PROJECT,
     items: array_of_items

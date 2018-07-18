@@ -26,15 +26,6 @@ app.use("/", routes);
 app.use("/create", create);
 app.use("/users", users);
 
-var config = require("./config");
-
-// const mongoose = require("mongoose");
-// mongoose.connect(
-//   config.MONGO_URL,
-//   { useNewUrlParser: true }
-// );
-// var db = mongoose.connection;
-
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
   var err = new Error("Not Found");
