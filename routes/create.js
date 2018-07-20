@@ -12,7 +12,9 @@ router.get("/", function(req, res) {
 });
 
 router.post("/", function(req, res) {
-  const { title, discripiton } = req.body;
+  const { title, discripiton, logo, complexity, category } = req.body;
+
+  console.log(category);
 
   Project.create({
     title: title,
