@@ -15,4 +15,21 @@ router.get("/", function(req, res) {
   });
 });
 
+/* GET home page. */
+router.get("/registration", function(req, res) {
+  Project.find({}).then(projects => {
+    res.render("reg", {
+      title: config.NAME_OF_PROJECT
+    });
+  });
+});
+
+router.post("/registration", function(req, res) {
+  const { fio, login, pass1, pass2 } = req.body;
+
+  console.log(fio, login, pass1, pass2);
+
+  res.redirect("/");
+});
+
 module.exports = router;

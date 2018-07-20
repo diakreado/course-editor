@@ -11,6 +11,8 @@ const create = require("./routes/create");
 
 const staticAsset = require("static-asset");
 
+const config = require("./config");
+
 const app = express();
 
 // view engine setup
