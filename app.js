@@ -13,6 +13,21 @@ const staticAsset = require("static-asset");
 
 const config = require("./config");
 
+// database
+const mongoose = require("mongoose");
+mongoose.set("debug", !config.IS_PRODUCTION);
+mongoose.connect(
+  config.MONGO_URL,
+  { useNewUrlParser: true }
+);
+
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error:"));
+db.once("open", function() {
+  console.log("connection to database open.");
+});
+
+// express
 const app = express();
 
 // view engine setup
