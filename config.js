@@ -1,6 +1,12 @@
+const dotenv = require("dotenv");
+const path = require("path");
+
+const root = path.join.bind(this, __dirname);
+dotenv.config({ path: root(".env") });
+
 module.exports = {
   NAME_OF_PROJECT: "Редактор курсов",
-  MONGO_URL: "mongodb://localhost:27017/project-editor",
+  MONGO_URL: process.env.MONGO_URL,
   IS_PRODUCTION: process.env.NODE_ENV === "production",
   PORT: process.env.PORT || 3000
 };

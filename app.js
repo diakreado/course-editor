@@ -6,8 +6,8 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 
 const routes = require("./routes/index");
-const users = require("./routes/users");
 const create = require("./routes/create");
+const reg = require("./routes/reg");
 
 const staticAsset = require("static-asset");
 
@@ -44,7 +44,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", routes);
 app.use("/create", create);
-app.use("/users", users);
+app.use("/registration", reg);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
