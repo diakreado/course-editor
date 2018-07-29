@@ -7,7 +7,7 @@ const bodyParser = require("body-parser");
 
 const routes = require("./routes/index");
 const create = require("./routes/create");
-const reg = require("./routes/reg");
+const auth = require("./routes/auth");
 
 const staticAsset = require("static-asset");
 
@@ -22,9 +22,9 @@ mongoose.connect(
 );
 
 const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
+db.on("error", console.error.bind(console, "Connection error:"));
 db.once("open", function() {
-  console.log("connection to database open.");
+  console.log("Connection to database open.");
 });
 
 // express
@@ -44,7 +44,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", routes);
 app.use("/create", create);
-app.use("/registration", reg);
+app.use("/registration", auth);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {

@@ -4,7 +4,7 @@ var router = express.Router();
 const config = require("../config.js");
 const index = require("./index.js");
 
-const Project = require("../models/project.js");
+const models = require("../models");
 
 /* GET home page. */
 router.get("/", function(req, res) {
@@ -14,9 +14,9 @@ router.get("/", function(req, res) {
 router.post("/", function(req, res) {
   const { title, discripiton, logo, complexity, category } = req.body;
 
-  console.log(category);
+  console.log(logo, complexity, category);
 
-  Project.create({
+  models.Project.create({
     title: title,
     discripiton: discripiton
   }).then(post => console.log(post.id));

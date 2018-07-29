@@ -10,3 +10,16 @@ body {
   width: 25%;
   float: right;
 }
+
+div.error,
+p.error {
+  background-color: #efcac4;
+  border: 1px solid #e82c0c;
+  color: #e82c0c;
+  padding: 10px;
+}
+
+input.error,
+textarea.error {
+  border: 1px solid #e82c0c;
+}

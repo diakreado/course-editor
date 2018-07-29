@@ -20,4 +20,4 @@ projectSchema.set("toJSON", {
   virtuals: true
 });
 
-module.exports = mongoose.model("Post", projectSchema);
+module.exports = mongoose.model("Project", projectSchema);
