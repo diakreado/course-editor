@@ -5,7 +5,7 @@ const models = require("../models");
 const bcrypt = require("bcrypt-nodejs");
 
 router.get("/", function(req, res) {
-  res.render("auth", {
+  res.render("registration", {
     title: config.NAME_OF_PROJECT
   });
 });
@@ -18,10 +18,16 @@ router.post("/", function(req, res) {
   }).then(user => {
     if (!user) {
       if (!name || !login || !password || !passwordConfirm) {
+        const fields = [];
+        if (!name) fields.push("name");
+        if (!login) fields.push("login");
+        if (!password) fields.push("password");
+        if (!passwordConfirm) fields.push("passwordConfirm");
+
         res.json({
           ok: false,
           error: "Все поля должны быть заполнены!",
-          fields: ["name", "login", "password", "passwordConfirm"]
+          fields
         });
       } else if (login.length < 3 || login.length > 16) {
         res.json({
@@ -65,8 +71,6 @@ router.post("/", function(req, res) {
       });
     }
   });
-
-  // res.redirect("/");
 });
 
 module.exports = router;

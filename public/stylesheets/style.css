@@ -1,6 +1,7 @@
 body {
   padding: 50px;
 }
+
 .first-column {
   width: 70%;
   float: left;
@@ -22,4 +23,14 @@ p.error {
 input.error,
 textarea.error {
   border: 1px solid #e82c0c;
+}
+
+.project-structure {
+  border: 2px solid #0069d9;
+  border-radius: 5%;
+  padding: 7px;
+}
+
+#add-new-lesson {
+  color: #1f56ba;
 }

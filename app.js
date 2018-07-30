@@ -7,7 +7,8 @@ const bodyParser = require("body-parser");
 
 const routes = require("./routes/index");
 const create = require("./routes/create");
-const auth = require("./routes/auth");
+const registration = require("./routes/registration");
+const login = require("./routes/login");
 
 const staticAsset = require("static-asset");
 
@@ -44,7 +45,8 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", routes);
 app.use("/create", create);
-app.use("/registration", auth);
+app.use("/registration", registration);
+app.use("/login", login);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
