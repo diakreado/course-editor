@@ -7,4 +7,4 @@ app.set("port", config.PORT);
 
 const server = app.listen(app.get("port"));
 
-console.log("Express server listening on port " + server.address().port);
+// console.log("Express server listening on port " + server.address().port);

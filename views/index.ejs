@@ -11,38 +11,47 @@
     <div class="modal-body">
         <div class="first-column">
             <ul>
-                <% items.forEach(function(item) { %>
+                <% projects.forEach(function(project) { %>
                     <li>
                         <h4>
                             <b>
-                                <%= item.title %>
+                                <%= project.title %>
                             </b>
                         </h4>
                         <p>
-                            <%= item.discripiton %>
+                            <%= project.discripiton %>
                         </p>
                     </li>
                     <% }); %>
             </ul>
         </div>
         <div class="second-column">
-            <form method="post" class="login">
-                <h2>Вход</h2>
-                <div class="form-group">
-                    <label for="loginForm">Логин:</label>
-                    <input type="login" name="login" class="form-control" id="login-login">
-                </div>
-                <div class="form-group">
-                    <label for="loginForm">Пароль:</label>
-                    <input type="password" name="password" class="form-control" id="login-password">
-                </div>
-                <button type="submit" class="btn btn-primary login-button">Войти</button>
-                <br>
-                <br>
-                <p>
-                    <a href="/registration">Регистрация</a>
-                </p>
-            </form>
+            <% if(!user.id && !user.login) { %>
+                <form method="post" class="login">
+                    <h2>Вход</h2>
+                    <div class="form-group">
+                        <label for="loginForm">Логин:</label>
+                        <input type="login" name="login" class="form-control" id="login-login">
+                    </div>
+                    <div class="form-group">
+                        <label for="loginForm">Пароль:</label>
+                        <input type="password" name="password" class="form-control" id="login-password">
+                    </div>
+                    <button type="submit" class="btn btn-primary login-button">Войти</button>
+                    <br>
+                    <br>
+                    <p>
+                        <a href="/auth/registration">Регистрация</a>
+                    </p>
+                </form>
+                <% }  else { %>
+                    <p>Добро пожаловать,
+                        <strong>
+                            <%= user.name %>
+                        </strong>
+                        <a href="/auth/logout">Выход</a>
+                    </p>
+                    <% } %>
         </div>
     </div>
 

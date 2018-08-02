@@ -1,10 +1,4 @@
 $(function() {
-  // clear
-  $("input").on("focus", function() {
-    $("p.error").remove();
-    $("input").removeClass("error");
-  });
-
   // registration
   $(".register-button").on("click", function(e) {
     e.preventDefault();
@@ -20,7 +14,7 @@ $(function() {
       type: "POST",
       data: JSON.stringify(data),
       contentType: "application/json",
-      url: "/registration"
+      url: "/auth/registration"
     }).done(function(data) {
       if (!data.ok) {
         $("p.error").remove();
@@ -51,7 +45,7 @@ $(function() {
       type: "POST",
       data: JSON.stringify(data),
       contentType: "application/json",
-      url: "/login"
+      url: "/auth/login"
     }).done(function(data) {
       if (!data.ok) {
         $("p.error").remove();

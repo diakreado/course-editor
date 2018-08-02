@@ -7,12 +7,14 @@ const bodyParser = require("body-parser");
 
 const routes = require("./routes/index");
 const create = require("./routes/create");
-const registration = require("./routes/registration");
-const login = require("./routes/login");
+const auth = require("./routes/auth");
 
 const staticAsset = require("static-asset");
 
 const config = require("./config");
+
+const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
 
 // database
 const mongoose = require("mongoose");
@@ -43,10 +45,20 @@ app.use(cookieParser());
 app.use(staticAsset(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use(
+  session({
+    secret: config.SESSION_SECRET,
+    resave: true,
+    saveUninitialized: false,
+    store: new MongoStore({
+      mongooseConnection: mongoose.connection
+    })
+  })
+);
+
 app.use("/", routes);
 app.use("/create", create);
-app.use("/registration", registration);
-app.use("/login", login);
+app.use("/auth", auth);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {

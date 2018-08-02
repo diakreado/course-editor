@@ -8,7 +8,12 @@ const models = require("../models");
 
 /* GET home page. */
 router.get("/", function(req, res) {
-  res.render("create", { title: config.NAME_OF_PROJECT });
+  models.Project.find({}).then(projects => {
+    res.render("create", {
+      title: config.NAME_OF_PROJECT,
+      lessons: projects
+    });
+  });
 });
 
 router.post("/", function(req, res) {

@@ -58,12 +58,21 @@
         </div>
         <div class="second-column">
             <div class="project-structure">
-                Новый урок
-                <br> Новый урок
-                <br> Новый урок
-                <br> Новый урок
-                <br> Новый урок
-                <div id="add-new-lesson">Добавить новый урок</div>
+                <ul>
+                    <% lessons.forEach(function(lesson) { %>
+                        <li>
+                            <h4>
+                                <b>
+                                    <%= lesson.title %>
+                                </b>
+                            </h4>
+                            <p>
+                                <%= lesson.discripiton %>
+                            </p>
+                        </li>
+                        <% }); %>
+                </ul>
+                <div class="add-new-lesson">Добавить новый урок</div>
             </div>
         </div>
     </div>

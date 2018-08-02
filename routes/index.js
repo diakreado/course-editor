@@ -8,9 +8,16 @@ const models = require("../models");
 /* GET home page. */
 router.get("/", function(req, res) {
   models.Project.find({}).then(projects => {
+    const name = req.session.userName;
+    const id = req.session.userId;
+
     res.render("index", {
       title: config.NAME_OF_PROJECT,
-      items: projects
+      projects: projects,
+      user: {
+        id: id,
+        name: name
+      }
     });
   });
 });
