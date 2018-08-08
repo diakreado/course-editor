@@ -18,7 +18,7 @@ const projectSchema = new Schema(
     category: {
       type: String
     },
-    author: {
+    authors: {
       type: String
     },
     owner: {

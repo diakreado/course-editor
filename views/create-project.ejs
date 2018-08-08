@@ -53,11 +53,11 @@
                     <option>Третья категория</option>
                 </select>
             </div>
-            <p>
-                Автор курса :
-                <%= name %>
-            </p>
-            <button type="submit" class="btn btn-primary my-1">Создать курс</button>
+            <div class="form-group">
+                <label for="nameOfCourse">Авторы курса :</label>
+                <input type="text" name="authors" class="form-control" id="authorsOfCourse" placeholder="авторы курса">
+            </div>
+            <button type="submit" class="btn btn-primary">Создать курс</button>
         </form>
     </div>
 

@@ -31,7 +31,7 @@ router.get("/create-project", async function(req, res) {
 });
 
 router.post("/create-project", async function(req, res) {
-  const { title, discripiton, logo, complexity, category } = req.body;
+  const { title, discripiton, logo, complexity, category, authors } = req.body;
   const name = req.session.userName;
   const userId = req.session.userId;
 
@@ -42,7 +42,7 @@ router.post("/create-project", async function(req, res) {
         discripiton,
         complexity,
         category,
-        author: name,
+        authors,
         owner: userId
       });
       console.log(post.id);
