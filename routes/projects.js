@@ -6,16 +6,19 @@ const config = require("../config.js");
 const models = require("../models");
 
 /* GET home page. */
-router.get("/", async function(req, res) {
+router.get("/:project_name", async function(req, res) {
   try {
-    const projects = await models.Project.find({}).sort({ createdAt: -1 });
+    const project_name = req.params.project_name;
+    const project = await models.Project.findOne({ url: project_name }).sort({
+      createdAt: -1
+    });
 
     const name = req.session.userName;
     const id = req.session.userId;
 
-    res.render("index", {
+    res.render("project", {
       title: config.NAME_OF_PROJECT,
-      projects: projects,
+      project: project,
       user: {
         id: id,
         name: name

@@ -1,0 +1,41 @@
+<% include layout/header %>
+    <h1>
+        <%= title %>
+    </h1>
+    <p>
+        <a href="/">На главную</a>
+    </p>
+    <div class="modal-body">
+        <div class="first-column">
+            <h4>
+                <b>
+                    <%= project.title %>
+                </b>
+            </h4>
+            <p>
+                <strong>Описание: </strong>
+                <%= project.discripiton %>
+            </p>
+            <p>
+                <strong>Сложность: </strong>
+                <%= project.complexity %>
+            </p>
+            <p>
+                <strong>Категория: </strong>
+                <%= project.category %>
+            </p>
+            <p>
+                <strong>Автор: </strong>
+                <%= project.author %>
+            </p>
+            <p>
+                <strong>Создан: </strong>
+                <%= project.createdAt %>
+            </p>
+        </div>
+        <div class="second-column">
+            <% include layout/sidebar %>
+        </div>
+    </div>
+
+    <% include layout/footer %>

@@ -5,9 +5,10 @@ const logger = require("morgan");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 
-const routes = require("./routes/index");
+const index = require("./routes/index");
 const create = require("./routes/create");
 const auth = require("./routes/auth");
+const projects = require("./routes/projects");
 
 const staticAsset = require("static-asset");
 
@@ -56,9 +57,10 @@ app.use(
   })
 );
 
-app.use("/", routes);
+app.use("/", index);
 app.use("/create", create);
 app.use("/auth", auth);
+app.use("/projects", projects);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {

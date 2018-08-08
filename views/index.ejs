@@ -3,8 +3,8 @@
         <%= title %>
     </h1>
     <p>
-        <form action="/create">
-            <button type="submit" class="btn btn-primary my-1">Добавить новый</button>
+        <form action="/create/create-project">
+            <button type="submit" class="btn btn-primary add-new-project">Добавить новый</button>
         </form>
     </p>
 
@@ -15,43 +15,21 @@
                     <li>
                         <h4>
                             <b>
-                                <%= project.title %>
+                                <a href="projects/<%= project.url %>">
+                                    <%= project.title %>
+                                </a>
                             </b>
                         </h4>
                         <p>
-                            <%= project.discripiton %>
+                            <strong>Краткое описание: </strong>
+                            <%= project.discripiton.substring(0, 100)%>...
                         </p>
                     </li>
                     <% }); %>
             </ul>
         </div>
         <div class="second-column">
-            <% if(!user.id && !user.login) { %>
-                <form method="post" class="login">
-                    <h2>Вход</h2>
-                    <div class="form-group">
-                        <label for="loginForm">Логин:</label>
-                        <input type="login" name="login" class="form-control" id="login-login">
-                    </div>
-                    <div class="form-group">
-                        <label for="loginForm">Пароль:</label>
-                        <input type="password" name="password" class="form-control" id="login-password">
-                    </div>
-                    <button type="submit" class="btn btn-primary login-button">Войти</button>
-                    <br>
-                    <br>
-                    <p>
-                        <a href="/auth/registration">Регистрация</a>
-                    </p>
-                </form>
-                <% }  else { %>
-                    <p>Добро пожаловать,
-                        <strong>
-                            <%= user.name %>
-                        </strong>
-                        <a href="/auth/logout">Выход</a>
-                    </p>
-                    <% } %>
+            <% include layout/sidebar %>
         </div>
     </div>
 

@@ -11,12 +11,25 @@ router.get("/registration", function(req, res) {
   });
 });
 
-router.post("/registration", function(req, res) {
+router.post("/registration", async function(req, res) {
   const { name, login, password, passwordConfirm } = req.body;
 
-  models.User.findOne({
-    login
-  }).then(user => {
+  try {
+    const user = await models.User.findOne({
+      login
+    });
+
+    const name = req.session.userName;
+    const id = req.session.userId;
+
+    res.render("index", {
+      title: config.NAME_OF_PROJECT,
+      projects: projects,
+      user: {
+        id: id,
+        name: name
+      }
+    });
     if (!user) {
       if (!name || !login || !password || !passwordConfirm) {
         const fields = [];
@@ -49,13 +62,13 @@ router.post("/registration", function(req, res) {
             password: hash,
             name
           })
-            .then(user => {
+            .then(newUser => {
               res.json({
                 ok: true
               });
-              req.session.userId = user.id;
-              req.session.userLogin = user.login;
-              req.session.userName = user.name;
+              req.session.userId = newUser.id;
+              req.session.userLogin = newUser.login;
+              req.session.userName = newUser.name;
             })
             .catch(err => {
               console.log(err);
@@ -74,7 +87,9 @@ router.post("/registration", function(req, res) {
         fields: ["login"]
       });
     }
-  });
+  } catch (error) {
+    throw new Error("Server Error");
+  }
 });
 
 // Login
@@ -137,10 +152,10 @@ router.post("/login", function(req, res) {
 router.get("/logout", function(req, res) {
   if (req.session) {
     req.session.destroy(() => {
-      res.redirect("/");
+      res.redirect(req.get("referer"));
     });
   } else {
-    res.redirect("/");
+    res.redirect(req.get("referer"));
   }
 });
 

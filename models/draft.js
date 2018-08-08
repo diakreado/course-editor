@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const URLSlugs = require("mongoose-url-slugs");
 const tr = require("transliter");
 
-const projectSchema = new Schema(
+const draftSchema = new Schema(
   {
     title: {
       type: String,
@@ -31,14 +31,14 @@ const projectSchema = new Schema(
   }
 );
 
-projectSchema.plugin(
+draftSchema.plugin(
   URLSlugs("title", {
     field: "url",
     generator: text => tr.slugify(text)
   })
 );
-projectSchema.set("toJSON", {
+draftSchema.set("toJSON", {
   virtuals: true
 });
 
-module.exports = mongoose.model("Project", projectSchema);
+module.exports = mongoose.model("Draft", draftSchema);
