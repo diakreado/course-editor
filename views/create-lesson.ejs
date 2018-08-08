@@ -7,18 +7,13 @@
     <h2>Добавить новый урок</h2>
 
     <div class="modal-body">
-        <div class="first-column">
-            <form method="post">
-                <div class="form-group">
-                    <label for="nameOfLesson">Введите название урока:</label>
-                    <input type="text" name="title" class="form-control" id="nameOfLesson" placeholder="название урока">
-                </div>
-                <button type="submit" class="btn btn-primary my-1">Создать урок</button>
-            </form>
-        </div>
-        <div class="second-column">
-            <% include create-layout/project-structure %>
-        </div>
+        <form method="post">
+            <div class="form-group">
+                <label for="nameOfLesson">Введите название урока:</label>
+                <input type="text" name="title" class="form-control" id="nameOfLesson" placeholder="название урока">
+            </div>
+            <button type="submit" class="btn btn-primary my-1">Создать урок</button>
+        </form>
     </div>
 
     <% include layout/footer %>

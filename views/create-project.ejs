@@ -7,63 +7,58 @@
     </p>
 
     <div class="modal-body">
-        <div class="first-column">
-            <form method="post">
-                <div class="form-group">
-                    <label for="nameOfCourse">Введите название курса:</label>
-                    <input type="text" name="title" class="form-control" id="nameOfCourse" placeholder="название курса">
-                </div>
-                <div class="form-group">
-                    <label for="discripitonOfCourse">Введите описание курса:</label>
-                    <textarea class="form-control" name="discripiton" id="discripitonOfCourse" rows="3" placeholder="описание курса"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="logoFile">Прикрепите логотип курса:</label>
-                    <input type="file" class="form-control-file" id="logoFile" name="logo">
-                </div>
-                <div class="form-group">
-                    <label for="complexitySelector">Укажите сложность курса:</label>
-                    <div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="complexity" id="inlineRadio1" value="1">
-                            <label class="form-check-label" for="inlineRadio1">1</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="complexity" id="inlineRadio2" value="2">
-                            <label class="form-check-label" for="inlineRadio2">2</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="complexity" id="inlineRadio3" value="3">
-                            <label class="form-check-label" for="inlineRadio3">3</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="complexity" id="inlineRadio4" value="4">
-                            <label class="form-check-label" for="inlineRadio4">4</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="complexity" id="inlineRadio5" value="5">
-                            <label class="form-check-label" for="inlineRadio5">5</label>
-                        </div>
+        <form method="post">
+            <div class="form-group">
+                <label for="nameOfCourse">Введите название курса:</label>
+                <input type="text" name="title" class="form-control" id="nameOfCourse" placeholder="название курса">
+            </div>
+            <div class="form-group">
+                <label for="discripitonOfCourse">Введите описание курса:</label>
+                <textarea class="form-control" name="discripiton" id="discripitonOfCourse" rows="3" placeholder="описание курса"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="logoFile">Прикрепите логотип курса:</label>
+                <input type="file" class="form-control-file" id="logoFile" name="logo">
+            </div>
+            <div class="form-group">
+                <label for="complexitySelector">Укажите сложность курса:</label>
+                <div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="complexity" id="inlineRadio1" value="1">
+                        <label class="form-check-label" for="inlineRadio1">1</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="complexity" id="inlineRadio2" value="2">
+                        <label class="form-check-label" for="inlineRadio2">2</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="complexity" id="inlineRadio3" value="3">
+                        <label class="form-check-label" for="inlineRadio3">3</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="complexity" id="inlineRadio4" value="4">
+                        <label class="form-check-label" for="inlineRadio4">4</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="complexity" id="inlineRadio5" value="5">
+                        <label class="form-check-label" for="inlineRadio5">5</label>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="categorySelector">Укажите категорию курса:</label>
-                    <select class="form-control" name="category">
-                        <option>Первая категория</option>
-                        <option>Вторая категория</option>
-                        <option>Третья категория</option>
-                    </select>
-                </div>
-                <p>
-                    Автор курса :
-                    <%= name %>
-                </p>
-                <button type="submit" class="btn btn-primary my-1">Создать курс</button>
-            </form>
-        </div>
-        <div class="second-column">
-            <% include create-layout/project-structure %>
-        </div>
+            </div>
+            <div class="form-group">
+                <label for="categorySelector">Укажите категорию курса:</label>
+                <select class="form-control" name="category">
+                    <option>Первая категория</option>
+                    <option>Вторая категория</option>
+                    <option>Третья категория</option>
+                </select>
+            </div>
+            <p>
+                Автор курса :
+                <%= name %>
+            </p>
+            <button type="submit" class="btn btn-primary my-1">Создать курс</button>
+        </form>
     </div>
 
     <% include layout/footer %>
