@@ -15,13 +15,15 @@ router.get("/:project_name", async function(req, res) {
 
     const name = req.session.userName;
     const id = req.session.userId;
+    const login = req.session.userLogin;
 
     res.render("project", {
       title: config.NAME_OF_PROJECT,
       project: project,
       user: {
-        id: id,
-        name: name
+        id,
+        name,
+        login
       }
     });
   } catch (error) {

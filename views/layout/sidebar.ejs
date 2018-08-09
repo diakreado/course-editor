@@ -1,4 +1,4 @@
-<% if(!user.id && !user.login) { %>
+<% if(!user.id || !user.login) { %>
     <form method="post" class="login">
         <h2>Вход</h2>
         <div class="form-group">

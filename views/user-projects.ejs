@@ -3,12 +3,12 @@
         <%= title %>
     </h1>
     <p>
+        <a href="/">На главную</a>
+    </p>
+    <p>
         <% if(user.id && user.login) { %>
             <a href="/create/create-project">
                 <button class="btn btn-primary add-new-project">Добавить новый</button>
-            </a>
-            <a href="/user-projects">
-                <button class="btn btn-primary">Мои проекты</button>
             </a>
             <% } %>
     </p>
@@ -20,7 +20,7 @@
                     <li>
                         <h4>
                             <b>
-                                <a href="projects/<%= project.url %>">
+                                <a href="/projects/<%= project.url %>">
                                     <%= project.title %>
                                 </a>
                             </b>
