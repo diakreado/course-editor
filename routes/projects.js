@@ -23,7 +23,6 @@ router.get("/:project", async function(req, res) {
       project: project,
       user: {
         id,
-        name,
         login
       },
       lessons
