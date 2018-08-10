@@ -4,88 +4,125 @@ const router = express.Router();
 const config = require("../config.js");
 const models = require("../models");
 
-var lessons = [];
-
+// Create project
 router.get("/create-project", async function(req, res) {
   const name = req.session.userName;
   const userId = req.session.userId;
-
-  if (!name || !userId) {
-    res.redirect("/");
-  } else {
-    try {
-      const projects = await models.Project.find({});
-
+  try {
+    if (!name || !userId) {
+      res.redirect("/");
+    } else {
       const name = req.session.userName;
-      const title = config.NAME_OF_PROJECT;
+      const title = "Добавить курс";
 
       res.render("create-project", {
         title,
-        name,
-        lessons
+        name
       });
-    } catch (error) {
-      throw new Error("Server Error");
     }
+  } catch (error) {
+    throw new Error("Server Error");
   }
 });
 
+// Create project
 router.post("/create-project", async function(req, res) {
-  const { title, discripiton, logo, complexity, category, authors } = req.body;
   const name = req.session.userName;
   const userId = req.session.userId;
-
-  if (name && userId) {
-    try {
-      const post = await models.Project.create({
+  try {
+    if (!name || !userId) {
+      res.redirect("/");
+    } else {
+      const {
         title,
         discripiton,
+        logo,
+        complexity,
+        category,
+        authors
+      } = req.body;
+      const curse = await models.Project.create({
+        title,
+        discripiton,
+        logo,
         complexity,
         category,
         authors,
         owner: userId
       });
-      console.log(post.id);
-    } catch (error) {
-      throw new Error("Server Error");
+      res.redirect("/create/" + curse.url);
     }
+  } catch (error) {
+    throw new Error("Server Error");
   }
-  res.redirect("/");
 });
 
-router.get("/create-lesson", async function(req, res) {
+// Edit project
+router.get("/:project", async function(req, res) {
   const name = req.session.userName;
   const userId = req.session.userId;
+  try {
+    const projectURL = req.params.project;
+    const project = await models.Project.findOne({ url: projectURL });
 
-  if (!name || !userId) {
-    res.redirect("/");
-  } else {
-    try {
-      const projects = await models.Project.find({});
+    if (!name || !userId || userId != project.owner) {
+      res.redirect("/");
+    } else {
+      const lessons = await models.Lesson.find({ curse: project.id });
 
-      res.render("create-lesson", {
-        title: config.NAME_OF_PROJECT,
-        lessons: lessons
+      res.render("edit-project", {
+        title: project.title,
+        project,
+        lessons
       });
-    } catch (error) {
-      throw new Error("Server Error");
     }
+  } catch (error) {
+    throw new Error("Server Error");
   }
 });
 
-router.post("/create-lesson", function(req, res) {
+// Create lesson
+router.get("/:project/create-lesson", async function(req, res) {
   const name = req.session.userName;
   const userId = req.session.userId;
+  try {
+    const projectURL = req.params.project;
+    const project = await models.Project.findOne({ url: projectURL });
 
-  if (!name || !userId) {
+    if (!name || !userId || userId != project.owner) {
+      res.redirect("/");
+    } else {
+      res.render("create-lesson", {
+        title: project.title
+      });
+    }
+  } catch (error) {
+    throw new Error("Server Error");
+  }
+});
+
+// Create lesson
+router.post("/:project/create-lesson", async function(req, res) {
+  const name = req.session.userName;
+  const userId = req.session.userId;
+  const projectURL = req.params.project;
+  const project = await models.Project.findOne({ url: projectURL });
+
+  if (!name || !userId || userId != project.owner) {
     res.redirect("/");
   } else {
-    const { title } = req.body;
-    lesson = {
-      title
-    };
-    lessons.push(lesson);
-    res.redirect("/create/create-project");
+    const { title, id, discripiton, logo, duration } = req.body;
+
+    const lesson = await models.Lesson.create({
+      curse: project.id,
+      title,
+      id,
+      discripiton,
+      logo,
+      duration
+    });
+
+    res.redirect("/create/" + projectURL); //+ "/" + lesson.url
   }
 });
 

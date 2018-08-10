@@ -1,6 +1,9 @@
 <% include layout/header %>
-
-    <h1>Добавить новый курс</h1>
+    <h1>
+        <b>
+            <%= title %>
+        </b>
+    </h1>
     <p>
         <a href="/">На главную</a>
     </p>
@@ -12,7 +15,23 @@
                 <label for="nameOfLesson">Введите название урока:</label>
                 <input type="text" name="title" class="form-control" id="nameOfLesson" placeholder="название урока">
             </div>
-            <button type="submit" class="btn btn-primary my-1">Создать урок</button>
+            <div class="form-group">
+                <label for="idOfLesson">Введите номер урока:</label>
+                <input type="number" name="id" class="form-control" id="idOfLesson" placeholder="номер урока">
+            </div>
+            <div class="form-group">
+                <label for="discripitonOfLesson">Введите описание курса:</label>
+                <textarea class="form-control" name="discripiton" id="discripitonOfLesson" rows="3" placeholder="описание урока"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="logoFile">Прикрепите логотип урока:</label>
+                <input type="file" class="form-control-file" id="logoFile" name="logo">
+            </div>
+            <div class="form-group">
+                <label for="idOfLesson">Введите длительность урока:</label>
+                <input type="number" name="duration" class="form-control" id="durationOfLesson" placeholder="длительность урока урока">
+            </div>
+            <button type="submit" class="btn btn-primary">Создать урок</button>
         </form>
     </div>
 

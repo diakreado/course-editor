@@ -12,19 +12,21 @@ router.get("/:project_name", async function(req, res) {
     const project = await models.Project.findOne({ url: project_name }).sort({
       createdAt: -1
     });
-
     const name = req.session.userName;
     const id = req.session.userId;
     const login = req.session.userLogin;
 
+    const lessons = await models.Lesson.find({ curse: project.id });
+
     res.render("project", {
-      title: config.NAME_OF_PROJECT,
+      title: project.title,
       project: project,
       user: {
         id,
         name,
         login
-      }
+      },
+      lessons
     });
   } catch (error) {
     throw new Error("Server Error");

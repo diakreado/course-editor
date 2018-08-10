@@ -13,13 +13,12 @@ router.get("/registration", function(req, res) {
 
 // Registration
 router.post("/registration", async function(req, res) {
-  const { name, login, password, passwordConfirm } = req.body;
+  const { login, password, passwordConfirm } = req.body;
   try {
     const user = await models.User.findOne({ login });
     if (!user) {
-      if (!name || !login || !password || !passwordConfirm) {
+      if (!login || !password || !passwordConfirm) {
         const fields = [];
-        if (!name) fields.push("name");
         if (!login) fields.push("login");
         if (!password) fields.push("password");
         if (!passwordConfirm) fields.push("passwordConfirm");
@@ -46,13 +45,11 @@ router.post("/registration", async function(req, res) {
           try {
             const newUser = await models.User.create({
               login,
-              password: hash,
-              name
+              password: hash
             });
 
             req.session.userId = newUser.id;
             req.session.userLogin = newUser.login;
-            req.session.userName = newUser.name;
 
             res.json({
               ok: true
@@ -108,7 +105,6 @@ router.post("/login", async function(req, res) {
           if (result) {
             req.session.userId = user.id;
             req.session.userLogin = user.login;
-            req.session.userName = user.name;
 
             res.json({
               ok: true

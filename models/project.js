@@ -12,6 +12,9 @@ const projectSchema = new Schema(
     discripiton: {
       type: String
     },
+    logo: {
+      type: String
+    },
     complexity: {
       type: String
     },
