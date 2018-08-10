@@ -6,18 +6,15 @@ const models = require("../models");
 
 // Create project
 router.get("/create-project", async function(req, res) {
-  const name = req.session.userName;
+  const login = req.session.userLogin;
   const userId = req.session.userId;
   try {
-    if (!name || !userId) {
+    if (!login || !userId) {
       res.redirect("/");
     } else {
-      const name = req.session.userName;
       const title = "Добавить курс";
-
       res.render("create-project", {
-        title,
-        name
+        title
       });
     }
   } catch (error) {
@@ -27,10 +24,10 @@ router.get("/create-project", async function(req, res) {
 
 // Create project
 router.post("/create-project", async function(req, res) {
-  const name = req.session.userName;
+  const login = req.session.userLogin;
   const userId = req.session.userId;
   try {
-    if (!name || !userId) {
+    if (!login || !userId) {
       res.redirect("/");
     } else {
       const {
@@ -59,13 +56,13 @@ router.post("/create-project", async function(req, res) {
 
 // Edit project
 router.get("/:project", async function(req, res) {
-  const name = req.session.userName;
+  const login = req.session.userLogin;
   const userId = req.session.userId;
   try {
     const projectURL = req.params.project;
     const project = await models.Project.findOne({ url: projectURL });
 
-    if (!name || !userId || userId != project.owner) {
+    if (!login || !userId || userId != project.owner) {
       res.redirect("/");
     } else {
       const lessons = await models.Lesson.find({ curse: project.id });
@@ -83,13 +80,13 @@ router.get("/:project", async function(req, res) {
 
 // Create lesson
 router.get("/:project/create-lesson", async function(req, res) {
-  const name = req.session.userName;
+  const login = req.session.userLogin;
   const userId = req.session.userId;
   try {
     const projectURL = req.params.project;
     const project = await models.Project.findOne({ url: projectURL });
 
-    if (!name || !userId || userId != project.owner) {
+    if (!login || !userId || userId != project.owner) {
       res.redirect("/");
     } else {
       res.render("create-lesson", {
@@ -103,12 +100,12 @@ router.get("/:project/create-lesson", async function(req, res) {
 
 // Create lesson
 router.post("/:project/create-lesson", async function(req, res) {
-  const name = req.session.userName;
+  const login = req.session.userLogin;
   const userId = req.session.userId;
   const projectURL = req.params.project;
   const project = await models.Project.findOne({ url: projectURL });
 
-  if (!name || !userId || userId != project.owner) {
+  if (!login || !userId || userId != project.owner) {
     res.redirect("/");
   } else {
     const { title, id, discripiton, logo, duration } = req.body;
@@ -122,7 +119,29 @@ router.post("/:project/create-lesson", async function(req, res) {
       duration
     });
 
-    res.redirect("/create/" + projectURL); //+ "/" + lesson.url
+    res.redirect("/create/" + projectURL + "/" + lesson.url);
+  }
+});
+
+// Edit lesson
+router.get("/:project/:lesson", async function(req, res) {
+  const login = req.session.userLogin;
+  const userId = req.session.userId;
+  try {
+    const projectURL = req.params.project;
+    const project = await models.Project.findOne({ url: projectURL });
+    const lessonURL = req.params.lesson;
+    const lesson = await models.Lesson.findOne({ url: lessonURL });
+
+    if (!login || !userId || userId != project.owner) {
+      res.redirect("/");
+    } else {
+      res.render("edit-lesson", {
+        title: project.title
+      });
+    }
+  } catch (error) {
+    throw new Error("Server Error");
   }
 });
 

@@ -16,7 +16,6 @@ $(function() {
     removeErrors();
 
     var data = {
-      name: $("#register-name").val(),
       login: $("#register-login").val(),
       password: $("#register-password").val(),
       passwordConfirm: $("#register-password-confirm").val()

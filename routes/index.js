@@ -10,7 +10,6 @@ router.get("/", async function(req, res) {
   try {
     const projects = await models.Project.find({}).sort({ createdAt: -1 });
 
-    const name = req.session.userName;
     const id = req.session.userId;
     const login = req.session.userLogin;
 
@@ -19,7 +18,6 @@ router.get("/", async function(req, res) {
       projects: projects,
       user: {
         id,
-        name,
         login
       }
     });

@@ -6,13 +6,13 @@ const config = require("../config.js");
 const models = require("../models");
 
 /* GET home page. */
-router.get("/:project_name", async function(req, res) {
+router.get("/:project", async function(req, res) {
   try {
-    const project_name = req.params.project_name;
-    const project = await models.Project.findOne({ url: project_name }).sort({
+    const projectName = req.params.project;
+    const project = await models.Project.findOne({ url: projectName }).sort({
       createdAt: -1
     });
-    const name = req.session.userName;
+
     const id = req.session.userId;
     const login = req.session.userLogin;
 
