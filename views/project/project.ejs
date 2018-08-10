@@ -1,9 +1,10 @@
-<% include layout/header %>
-    <h1>
+<% include ../layout/header %>
+    <h3>
+        Курс:
         <b>
             <%= project.title %>
         </b>
-    </h1>
+    </h3>
     <p>
         <a href="/">На главную</a>
     </p>
@@ -41,7 +42,7 @@
                     <li>
                         <h4>
                             <b>
-                                <a href="projects/<%= project.url %>">
+                                <a href="/projects/<%= project.url %>/lessons/<%= lesson.url %>">
                                     <%= lesson.title %>
                                 </a>
                             </b>
@@ -55,8 +56,8 @@
             </ul>
         </div>
         <div class="second-column">
-            <% include layout/sidebar %>
+            <% include ../layout/sidebar %>
         </div>
     </div>
 
-    <% include layout/footer %>
+    <% include ../layout/footer %>

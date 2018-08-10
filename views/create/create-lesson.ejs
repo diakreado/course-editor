@@ -1,13 +1,14 @@
-<% include layout/header %>
-    <h1>
+<% include ../layout/header %>
+    <h3>
+        Курс:
         <b>
             <%= title %>
         </b>
-    </h1>
+    </h3>
     <p>
         <a href="/">На главную</a>
     </p>
-    <h2>Добавить новый урок</h2>
+    <h4>Добавить новый урок</h4>
 
     <div class="modal-body">
         <form method="post">
@@ -17,7 +18,7 @@
             </div>
             <div class="form-group">
                 <label for="idOfLesson">Введите номер урока:</label>
-                <input type="number" name="id" class="form-control" id="idOfLesson" placeholder="номер урока">
+                <input type="number" name="number" class="form-control" id="idOfLesson" placeholder="номер урока">
             </div>
             <div class="form-group">
                 <label for="discripitonOfLesson">Введите описание курса:</label>
@@ -35,4 +36,4 @@
         </form>
     </div>
 
-    <% include layout/footer %>
+    <% include ../layout/footer %>

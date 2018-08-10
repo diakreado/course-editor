@@ -1,10 +1,8 @@
 const express = require("express");
 const router = express.Router();
-
-const config = require("../config.js");
 const models = require("../models");
 
-// Create project
+/* GET Create project */
 router.get("/create-project", async function(req, res) {
   const login = req.session.userLogin;
   const userId = req.session.userId;
@@ -13,7 +11,7 @@ router.get("/create-project", async function(req, res) {
       res.redirect("/");
     } else {
       const title = "Добавить курс";
-      res.render("create-project", {
+      res.render("create/create-project", {
         title
       });
     }
@@ -22,7 +20,7 @@ router.get("/create-project", async function(req, res) {
   }
 });
 
-// Create project
+/* POST Create project */
 router.post("/create-project", async function(req, res) {
   const login = req.session.userLogin;
   const userId = req.session.userId;
@@ -54,7 +52,7 @@ router.post("/create-project", async function(req, res) {
   }
 });
 
-// Edit project
+// GET Edit project
 router.get("/:project", async function(req, res) {
   const login = req.session.userLogin;
   const userId = req.session.userId;
@@ -66,9 +64,9 @@ router.get("/:project", async function(req, res) {
       res.redirect("/");
     } else {
       const lessons = await models.Lesson.find({ curse: project.id });
-
-      res.render("edit-project", {
-        title: project.title,
+      const title = "Редактирование курса";
+      res.render("create/edit-project", {
+        title,
         project,
         lessons
       });
@@ -78,7 +76,7 @@ router.get("/:project", async function(req, res) {
   }
 });
 
-// Create lesson
+// GET Create lesson
 router.get("/:project/create-lesson", async function(req, res) {
   const login = req.session.userLogin;
   const userId = req.session.userId;
@@ -89,7 +87,7 @@ router.get("/:project/create-lesson", async function(req, res) {
     if (!login || !userId || userId != project.owner) {
       res.redirect("/");
     } else {
-      res.render("create-lesson", {
+      res.render("create/create-lesson", {
         title: project.title
       });
     }
@@ -98,7 +96,7 @@ router.get("/:project/create-lesson", async function(req, res) {
   }
 });
 
-// Create lesson
+// POST Create lesson
 router.post("/:project/create-lesson", async function(req, res) {
   const login = req.session.userLogin;
   const userId = req.session.userId;
@@ -108,23 +106,23 @@ router.post("/:project/create-lesson", async function(req, res) {
   if (!login || !userId || userId != project.owner) {
     res.redirect("/");
   } else {
-    const { title, id, discripiton, logo, duration } = req.body;
+    const { title, number, discripiton, logo, duration } = req.body;
 
     const lesson = await models.Lesson.create({
       curse: project.id,
       title,
-      id,
+      number,
       discripiton,
       logo,
       duration
     });
 
-    res.redirect("/create/" + projectURL + "/" + lesson.url);
+    res.redirect("/create/" + projectURL + "/lessons/" + lesson.url);
   }
 });
 
-// Edit lesson
-router.get("/:project/:lesson", async function(req, res) {
+// GET Edit lesson
+router.get("/:project/lessons/:lesson", async function(req, res) {
   const login = req.session.userLogin;
   const userId = req.session.userId;
   try {
@@ -136,8 +134,11 @@ router.get("/:project/:lesson", async function(req, res) {
     if (!login || !userId || userId != project.owner) {
       res.redirect("/");
     } else {
-      res.render("edit-lesson", {
-        title: project.title
+      const title = "Редактирование урока";
+      res.render("create/edit-lesson", {
+        title,
+        project,
+        lesson
       });
     }
   } catch (error) {

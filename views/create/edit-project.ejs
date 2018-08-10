@@ -1,9 +1,13 @@
-<% include layout/header %>
-    <h1>
+<% include ../layout/header %>
+    <h2>
+        <%= title %>
+    </h2>
+    <h3>
+        Курс:
         <b>
-            <%= title %>
+            <%= project.title %>
         </b>
-    </h1>
+    </h3>
     <p>
         <a href="/">На главную</a>
     </p>
@@ -39,7 +43,7 @@
             <li>
                 <h4>
                     <b>
-                        <a href="projects/<%= project.url %>">
+                        <a href="/create/<%= project.url %>/lessons/<%= lesson.url %>">
                             <%= lesson.title %>
                         </a>
                     </b>
@@ -51,4 +55,4 @@
             </li>
             <% }); %>
     </ul>
-    <% include layout/footer %>
+    <% include ../layout/footer %>
