@@ -1,35 +1,49 @@
 <% include ../layout/header %>
-    <h1>
+    <h3>
+        Курс:
         <b>
             <%= title %>
         </b>
-    </h1>
+    </h3>
+    <h4>
+        Урок:
+        <b>
+            <%= lesson.title %>
+        </b>
+    </h4>
+
     <p>
-        <a href="/">На главную</a>
+        <a href="/">На главную</a> &nbsp &nbsp
+        <a href="/create/<%= project.url %>">К курсу</a> &nbsp &nbsp
+        <a href="/create/<%= project.url %>/lessons/<%= lesson.url %>">К уроку</a>
     </p>
-    <h2>Добавить новый урок</h2>
+    <h4>Добавить новую задачу</h4>
 
     <div class="modal-body">
         <form method="post">
             <div class="form-group">
-                <label for="nameOfLesson">Введите название урока:</label>
-                <input type="text" name="title" class="form-control" id="nameOfLesson" placeholder="название урока">
+                <label for="idOfTask">Введите номер задания:</label>
+                <input type="number" name="number" class="form-control" id="idOfTask" placeholder="номер задания">
             </div>
             <div class="form-group">
-                <label for="idOfLesson">Введите номер урока:</label>
-                <input type="number" name="number" class="form-control" id="idOfLesson" placeholder="номер урока">
+                <label for="instructionsOfTask">Введите инструкции:</label>
+                <textarea class="form-control" name="instructions" id="instructionsOfTask" rows="1" placeholder="инструкция к заданию"></textarea>
             </div>
             <div class="form-group">
-                <label for="discripitonOfLesson">Введите описание курса:</label>
-                <textarea class="form-control" name="discripiton" id="discripitonOfLesson" rows="3" placeholder="описание урока"></textarea>
+                <label for="textOfTask">Введите текст:</label>
+                <textarea class="form-control" name="text" id="textOfTask" rows="1" placeholder="текст к заданию"></textarea>
             </div>
             <div class="form-group">
-                <label for="logoFile">Прикрепите логотип урока:</label>
-                <input type="file" class="form-control-file" id="logoFile" name="logo">
+                <label for="soundFile">Прикрепите звуковой файл:</label>
+                <input type="file" class="form-control-file" id="soundFile" name="sound">
             </div>
             <div class="form-group">
-                <label for="idOfLesson">Введите длительность урока:</label>
-                <input type="number" name="duration" class="form-control" id="durationOfLesson" placeholder="длительность урока урока">
+                <label for="pitchFile">Прикрепите файл с пичем:</label>
+                <input type="file" class="form-control-file" id="pitchFile" name="pitch">
+            </div>
+            <div class="form-group">
+                <label for="textMarkupFile">Прикрепите файл с разметкой текста:</label>
+                <input type="file" class="form-control-file" id="textMarkupFile" name="textMarkup">
             </div>
             <button type="submit" class="btn btn-primary">Создать урок</button>
         </form>

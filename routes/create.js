@@ -100,24 +100,29 @@ router.get("/:project/create-lesson", async function(req, res) {
 router.post("/:project/create-lesson", async function(req, res) {
   const login = req.session.userLogin;
   const userId = req.session.userId;
-  const projectURL = req.params.project;
-  const project = await models.Project.findOne({ url: projectURL });
 
-  if (!login || !userId || userId != project.owner) {
-    res.redirect("/");
-  } else {
-    const { title, number, discripiton, logo, duration } = req.body;
+  try {
+    const projectURL = req.params.project;
+    const project = await models.Project.findOne({ url: projectURL });
 
-    const lesson = await models.Lesson.create({
-      curse: project.id,
-      title,
-      number,
-      discripiton,
-      logo,
-      duration
-    });
+    if (!login || !userId || userId != project.owner) {
+      res.redirect("/");
+    } else {
+      const { title, number, discripiton, logo, duration } = req.body;
 
-    res.redirect("/create/" + projectURL + "/lessons/" + lesson.url);
+      const lesson = await models.Lesson.create({
+        curse: project.id,
+        title,
+        number,
+        discripiton,
+        logo,
+        duration
+      });
+
+      res.redirect("/create/" + projectURL + "/lessons/" + lesson.url);
+    }
+  } catch (error) {
+    throw new Error("Server Error");
   }
 });
 
@@ -130,6 +135,7 @@ router.get("/:project/lessons/:lesson", async function(req, res) {
     const project = await models.Project.findOne({ url: projectURL });
     const lessonURL = req.params.lesson;
     const lesson = await models.Lesson.findOne({ url: lessonURL });
+    const tasks = await models.Task.find({ lesson: lesson.id });
 
     if (!login || !userId || userId != project.owner) {
       res.redirect("/");
@@ -138,7 +144,90 @@ router.get("/:project/lessons/:lesson", async function(req, res) {
       res.render("create/edit-lesson", {
         title,
         project,
+        lesson,
+        tasks
+      });
+    }
+  } catch (error) {
+    throw new Error("Server Error");
+  }
+});
+
+// GET Create task
+router.get("/:project/:lesson/create-task", async function(req, res) {
+  const login = req.session.userLogin;
+  const userId = req.session.userId;
+  try {
+    const projectURL = req.params.project;
+    const project = await models.Project.findOne({ url: projectURL });
+    const lessonURL = req.params.lesson;
+    const lesson = await models.Lesson.findOne({ url: lessonURL });
+
+    if (!login || !userId || userId != project.owner) {
+      res.redirect("/");
+    } else {
+      res.render("create/create-task", {
+        title: project.title,
+        project,
         lesson
+      });
+    }
+  } catch (error) {
+    throw new Error("Server Error");
+  }
+});
+
+// POST Create task
+router.post("/:project/:lesson/create-task", async function(req, res) {
+  const login = req.session.userLogin;
+  const userId = req.session.userId;
+  try {
+    const projectURL = req.params.project;
+    const project = await models.Project.findOne({ url: projectURL });
+    const lessonURL = req.params.lesson;
+    const lesson = await models.Lesson.findOne({ url: lessonURL });
+
+    if (!login || !userId || userId != project.owner) {
+      res.redirect("/");
+    } else {
+      const { number, instructions, text, sound, pitch, textMarkup } = req.body;
+      const task = await models.Task.create({
+        lesson: lesson.id,
+        number,
+        instructions,
+        text,
+        sound,
+        pitch,
+        textMarkup
+      });
+      res.redirect("/create/" + projectURL + "/lessons/" + lesson.url);
+    }
+  } catch (error) {
+    throw new Error("Server Error");
+  }
+});
+
+// GET Edit task
+router.get("/:project/:lesson/tasks/:task", async function(req, res) {
+  const login = req.session.userLogin;
+  const userId = req.session.userId;
+  try {
+    const projectURL = req.params.project;
+    const project = await models.Project.findOne({ url: projectURL });
+    const lessonURL = req.params.lesson;
+    const lesson = await models.Lesson.findOne({ url: lessonURL });
+    const taskURL = req.params.task;
+    const task = await models.Task.findOne({ url: taskURL });
+
+    if (!login || !userId || userId != project.owner) {
+      res.redirect("/");
+    } else {
+      const title = "Редактирование задачи";
+      res.render("create/edit-task", {
+        title,
+        project,
+        lesson,
+        task
       });
     }
   } catch (error) {

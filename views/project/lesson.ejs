@@ -40,6 +40,27 @@
                 <strong>Создан: </strong>
                 <%= lesson.createdAt %>
             </p>
+            <ul>
+                <% tasks.forEach(function(task) { %>
+                    <li>
+                        <h4>
+                            <b>
+                                <a href="/projects/<%= project.url %>/<%= lesson.url %>/tasks/<%= task.url %>">
+                                    <%= task.number %>
+                                </a>
+                            </b>
+                        </h4>
+                        <p>
+                            <strong>Инструкция: </strong>
+                            <%= task.instructions %>
+                        </p>
+                        <p>
+                            <strong>Текст: </strong>
+                            <%= task.text %>
+                        </p>
+                    </li>
+                    <% }); %>
+            </ul>
         </div>
         <div class="second-column">
             <% include ../layout/sidebar %>

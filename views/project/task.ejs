@@ -1,0 +1,52 @@
+<% include ../layout/header %>
+    <h3>
+        Курс:
+        <b>
+            <%= project.title %>
+        </b>
+    </h3>
+    <h4>
+        Урок:
+        <b>
+            <%= lesson.title %>
+        </b>
+    </h4>
+    <h5>Задание:
+        <b>
+            <%= task.number %>
+        </b>
+    </h5>
+    <p>
+        <a href="/">На главную</a> &nbsp &nbsp
+        <a href="/projects/<%= project.url %>">К курсу</a> &nbsp &nbsp
+        <a href="/projects/<%= project.url %>/lessons/<%= lesson.url %>">К уроку</a>
+    </p>
+    <p>
+        <% if(user.id && user.login && user.id == project.owner) { %>
+            <a href="/create/<%= project.url %>">
+                <button class="btn btn-primary add-new-project">Редактировать</button>
+            </a>
+            <% } %>
+    </p>
+    <div class="modal-body">
+        <div class="first-column">
+            <p>
+                <strong>Инструкция: </strong>
+                <%= task.instructions %>
+            </p>
+            <p>
+                <strong>Текст: </strong>
+                <%= task.text %>
+            </p>
+            <p>
+                <strong>Создан: </strong>
+                <%= task.createdAt %>
+            </p>
+
+        </div>
+        <div class="second-column">
+            <% include ../layout/sidebar %>
+        </div>
+    </div>
+
+    <% include ../layout/footer %>

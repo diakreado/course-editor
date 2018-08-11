@@ -37,8 +37,29 @@
         </p>
     </div>
     <p>
-        <a href="/create/<%= project.url %>/create-lesson">
+        <a href="/create/<%= project.url %>/<%= lesson.url %>/create-task">
             <button class="btn btn-primary">Создать задание</button>
         </a>
     </p>
+    <ul>
+        <% tasks.forEach(function(task) { %>
+            <li>
+                <h4>
+                    <b>
+                        <a href="/create/<%= project.url %>/<%= lesson.url %>/tasks/<%= task.url %>">
+                            <%= task.number %>
+                        </a>
+                    </b>
+                </h4>
+                <p>
+                    <strong>Инструкция: </strong>
+                    <%= task.instructions %>
+                </p>
+                <p>
+                    <strong>Текст: </strong>
+                    <%= task.text %>
+                </p>
+            </li>
+            <% }); %>
+    </ul>
     <% include ../layout/footer %>
