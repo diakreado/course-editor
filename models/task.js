@@ -6,7 +6,8 @@ const tr = require("transliter");
 const taskSchema = new Schema(
   {
     lesson: {
-      type: String
+      type: Schema.Types.ObjectId,
+      ref: "Lesson"
     },
     number: {
       type: Number

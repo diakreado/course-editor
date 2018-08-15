@@ -4,15 +4,15 @@ const config = require("../config.js");
 const models = require("../models");
 const bcrypt = require("bcrypt-nodejs");
 
-// Registration
-router.get("/registration", function(req, res) {
+// GET Registration
+router.get("/registration", (req, res) => {
   res.render("registration", {
     title: config.NAME_OF_PROJECT
   });
 });
 
-// Registration
-router.post("/registration", async function(req, res) {
+// POST Registration
+router.post("/registration", async (req, res) => {
   const { login, password, passwordConfirm } = req.body;
   try {
     const user = await models.User.findOne({ login });
@@ -77,7 +77,7 @@ router.post("/registration", async function(req, res) {
 });
 
 // Login
-router.post("/login", async function(req, res) {
+router.post("/login", async (req, res) => {
   const { login, password } = req.body;
 
   if (!login || !password) {
@@ -129,7 +129,7 @@ router.post("/login", async function(req, res) {
 });
 
 // Logout
-router.get("/logout", function(req, res) {
+router.get("/logout", (req, res) => {
   if (req.session) {
     req.session.destroy(() => {
       res.redirect(req.get("referer"));

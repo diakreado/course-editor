@@ -6,14 +6,18 @@ const config = require("../config.js");
 const models = require("../models");
 
 /* GET project */
-router.get("/:project", async function(req, res) {
-  try {
-    const projectName = req.params.project;
-    const project = await models.Project.findOne({ url: projectName });
+router.get("/:project", async (req, res, next) => {
+  const id = req.session.userId;
+  const login = req.session.userLogin;
 
-    const id = req.session.userId;
-    const login = req.session.userLogin;
+  const projectName = req.params.project;
+  const project = await models.Project.findOne({ url: projectName });
 
+  if (!project) {
+    var err = new Error("Not Found");
+    err.status = 404;
+    next(err);
+  } else {
     const lessons = await models.Lesson.find({ curse: project.id });
 
     res.render("project/project", {
@@ -25,21 +29,24 @@ router.get("/:project", async function(req, res) {
       },
       lessons
     });
-  } catch (error) {
-    throw new Error("Server Error");
   }
 });
 
 /* GET lesson */
-router.get("/:project/lessons/:lesson", async function(req, res) {
-  try {
-    const id = req.session.userId;
-    const login = req.session.userLogin;
+router.get("/:project/lessons/:lesson", async (req, res, next) => {
+  const id = req.session.userId;
+  const login = req.session.userLogin;
 
-    const projectURL = req.params.project;
-    const project = await models.Project.findOne({ url: projectURL });
-    const lessonURL = req.params.lesson;
-    const lesson = await models.Lesson.findOne({ url: lessonURL });
+  const projectURL = req.params.project;
+  const project = await models.Project.findOne({ url: projectURL });
+  const lessonURL = req.params.lesson;
+  const lesson = await models.Lesson.findOne({ url: lessonURL });
+
+  if (!project || !lesson) {
+    var err = new Error("Not Found");
+    err.status = 404;
+    next(err);
+  } else {
     const tasks = await models.Task.find({ lesson: lesson.id });
 
     res.render("project/lesson", {
@@ -52,24 +59,26 @@ router.get("/:project/lessons/:lesson", async function(req, res) {
       lesson,
       tasks
     });
-  } catch (error) {
-    throw new Error("Server Error");
   }
 });
 
 /* GET task */
-router.get("/:project/:lesson/tasks/:task", async function(req, res) {
-  try {
-    const id = req.session.userId;
-    const login = req.session.userLogin;
+router.get("/:project/:lesson/tasks/:task", async (req, res, next) => {
+  const id = req.session.userId;
+  const login = req.session.userLogin;
 
-    const projectURL = req.params.project;
-    const project = await models.Project.findOne({ url: projectURL });
-    const lessonURL = req.params.lesson;
-    const lesson = await models.Lesson.findOne({ url: lessonURL });
-    const taskURL = req.params.task;
-    const task = await models.Task.findOne({ url: taskURL });
+  const projectURL = req.params.project;
+  const project = await models.Project.findOne({ url: projectURL });
+  const lessonURL = req.params.lesson;
+  const lesson = await models.Lesson.findOne({ url: lessonURL });
+  const taskURL = req.params.task;
+  const task = await models.Task.findOne({ url: taskURL });
 
+  if (!project || !lesson || !task) {
+    var err = new Error("Not Found");
+    err.status = 404;
+    next(err);
+  } else {
     res.render("project/task", {
       title: project.title,
       project,
@@ -80,8 +89,6 @@ router.get("/:project/:lesson/tasks/:task", async function(req, res) {
       lesson,
       task
     });
-  } catch (error) {
-    throw new Error("Server Error");
   }
 });
 

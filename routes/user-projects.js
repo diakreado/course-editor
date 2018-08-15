@@ -6,7 +6,7 @@ const config = require("../config.js");
 const models = require("../models");
 
 /* GET home page. */
-router.get("/", async function(req, res) {
+router.get("/", async (req, res) => {
   try {
     const userId = req.session.userId;
     const projects = await models.Project.find({ owner: userId }).sort({

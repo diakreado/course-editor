@@ -23,7 +23,7 @@
     </p>
     <p>
         <% if(user.id && user.login && user.id == project.owner) { %>
-            <a href="/create/<%= project.url %>">
+            <a href="/create/<%= project.url %>/<%= lesson.url %>/tasks/<%= task.url %>">
                 <button class="btn btn-primary add-new-project">Редактировать</button>
             </a>
             <% } %>
