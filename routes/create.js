@@ -71,8 +71,59 @@ router.get("/:project", async (req, res, next) => {
   }
 });
 
+// POST Edit project
+router.post("/:project", async (req, res, next) => {
+  const login = req.session.userLogin;
+  const userId = req.session.userId;
+
+  const projectURL = req.params.project;
+  const project = await models.Project.findOne({ url: projectURL });
+
+  if (!project) {
+    var err = new Error("Not Found");
+    err.status = 404;
+    next(err);
+  } else if (!login || !userId || userId != project.owner) {
+    res.redirect("/");
+  } else {
+    let { title, discripiton, logo, complexity, category, authors } = req.body;
+
+    if (logo == "") {
+      logo = project.logo;
+    }
+
+    const newProject = await models.Project.findOneAndUpdate(
+      {
+        _id: project.id,
+        owner: userId
+      },
+      {
+        title,
+        discripiton,
+        logo,
+        complexity,
+        category,
+        authors,
+        owner: userId
+      },
+      { new: true }
+    );
+
+    if (!newProject) {
+      res.json({
+        ok: false,
+        error: "Что-то пошло не так"
+      });
+    } else {
+      res.json({
+        ok: true
+      });
+    }
+  }
+});
+
 // GET Create lesson
-router.get("/:project/create-lesson", async (req, res) => {
+router.get("/:project/create-lesson", async (req, res, next) => {
   const login = req.session.userLogin;
   const userId = req.session.userId;
 
@@ -93,7 +144,7 @@ router.get("/:project/create-lesson", async (req, res) => {
 });
 
 // POST Create lesson
-router.post("/:project/create-lesson", async (req, res) => {
+router.post("/:project/create-lesson", async (req, res, next) => {
   const login = req.session.userLogin;
   const userId = req.session.userId;
 
@@ -123,7 +174,7 @@ router.post("/:project/create-lesson", async (req, res) => {
 });
 
 // GET Edit lesson
-router.get("/:project/lessons/:lesson", async (req, res) => {
+router.get("/:project/lessons/:lesson", async (req, res, next) => {
   const login = req.session.userLogin;
   const userId = req.session.userId;
 
@@ -151,8 +202,59 @@ router.get("/:project/lessons/:lesson", async (req, res) => {
   }
 });
 
+// POST Edit lesson
+router.post("/:project/lessons/:lesson", async (req, res, next) => {
+  const login = req.session.userLogin;
+  const userId = req.session.userId;
+
+  const projectURL = req.params.project;
+  const project = await models.Project.findOne({ url: projectURL });
+  const lessonURL = req.params.lesson;
+  const lesson = await models.Lesson.findOne({ url: lessonURL });
+
+  if (!project || !lesson) {
+    var err = new Error("Not Found");
+    err.status = 404;
+    next(err);
+  } else if (!login || !userId || userId != project.owner) {
+    res.redirect("/");
+  } else {
+    let { title, number, discripiton, logo, duration } = req.body;
+
+    if (logo == "") {
+      logo = project.logo;
+    }
+
+    const newLesson = await models.Lesson.findOneAndUpdate(
+      {
+        _id: lesson.id,
+        curse: project.id
+      },
+      {
+        title,
+        number,
+        discripiton,
+        logo,
+        duration
+      },
+      { new: true }
+    );
+
+    if (!newLesson) {
+      res.json({
+        ok: false,
+        error: "Что-то пошло не так"
+      });
+    } else {
+      res.json({
+        ok: true
+      });
+    }
+  }
+});
+
 // GET Create task
-router.get("/:project/:lesson/create-task", async (req, res) => {
+router.get("/:project/:lesson/create-task", async (req, res, next) => {
   const login = req.session.userLogin;
   const userId = req.session.userId;
 
@@ -177,7 +279,7 @@ router.get("/:project/:lesson/create-task", async (req, res) => {
 });
 
 // POST Create task
-router.post("/:project/:lesson/create-task", async (req, res) => {
+router.post("/:project/:lesson/create-task", async (req, res, next) => {
   const login = req.session.userLogin;
   const userId = req.session.userId;
 
@@ -208,7 +310,7 @@ router.post("/:project/:lesson/create-task", async (req, res) => {
 });
 
 // GET Edit task
-router.get("/:project/:lesson/tasks/:task", async (req, res) => {
+router.get("/:project/:lesson/tasks/:task", async (req, res, next) => {
   const login = req.session.userLogin;
   const userId = req.session.userId;
 
@@ -219,7 +321,7 @@ router.get("/:project/:lesson/tasks/:task", async (req, res) => {
   const taskURL = req.params.task;
   const task = await models.Task.findOne({ url: taskURL });
 
-  if (!project || !lesson) {
+  if (!project || !lesson || !task) {
     var err = new Error("Not Found");
     err.status = 404;
     next(err);
@@ -233,6 +335,53 @@ router.get("/:project/:lesson/tasks/:task", async (req, res) => {
       lesson,
       task
     });
+  }
+});
+
+// POST Edit task
+router.post("/:project/:lesson/tasks/:task", async (req, res, next) => {
+  const login = req.session.userLogin;
+  const userId = req.session.userId;
+
+  const projectURL = req.params.project;
+  const project = await models.Project.findOne({ url: projectURL });
+  const lessonURL = req.params.lesson;
+  const lesson = await models.Lesson.findOne({ url: lessonURL });
+  const taskURL = req.params.task;
+  const task = await models.Task.findOne({ url: taskURL });
+
+  if (!project || !lesson || !task) {
+    var err = new Error("Not Found");
+    err.status = 404;
+    next(err);
+  } else if (!login || !userId || userId != project.owner) {
+    res.redirect("/");
+  } else {
+    const { number, instructions, text } = req.body;
+
+    const newTask = await models.Task.findOneAndUpdate(
+      {
+        _id: task.id,
+        lesson: lesson.id
+      },
+      {
+        number,
+        instructions,
+        text
+      },
+      { new: true }
+    );
+
+    if (!newTask) {
+      res.json({
+        ok: false,
+        error: "Что-то пошло не так"
+      });
+    } else {
+      res.json({
+        ok: true
+      });
+    }
   }
 });
 

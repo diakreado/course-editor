@@ -8,34 +8,43 @@
             <%= project.title %>
         </b>
     </h3>
-    <h4>
-        Урок:
-        <b>
-            <%= lesson.title %>
-        </b>
-    </h4>
     <p>
         <a href="/">На главную</a> &nbsp &nbsp
         <a href="/create/<%= project.url %>">К курсу</a>
     </p>
     <div class="modal-body">
-        <p>
-            <strong>Номер: </strong>
-            <%= lesson.number %>
-        </p>
-        <p>
-            <strong>Описание: </strong>
-            <%= lesson.discripiton %>
-        </p>
-        <p>
-            <strong>Длительность: </strong>
-            <%= lesson.duration %>
-        </p>
-        <p>
-            <strong>Создан: </strong>
-            <%= lesson.createdAt %>
-        </p>
+        <form method="post">
+            <h4>
+                <div class="form-group">
+                    <label for="nameOfLesson"><strong>Урок:</strong></label>
+                    <input type="text" name="title" class="form-control" id="nameOfLesson" value="<%= lesson.title %>">
+                </div>
+            </h4>
+            <div class="form-group">
+                <label for="idOfLesson"><strong>Номер:</strong></label>
+                <input type="number" name="number" class="form-control" id="idOfLesson" value="<%= lesson.number %>">
+            </div>
+            <div class="form-group">
+                <label for="discripitonOfLesson"><strong>Описание:</strong></label>
+                <textarea class="form-control" name="discripiton" id="discripitonOfLesson" rows="3"><%= lesson.discripiton %></textarea>
+            </div>
+            <div class="form-group">
+                <label for="logoFile"> <strong>Логотип:</strong> </label>
+                <%= lesson.logo %>
+                    <input type="file" class="form-control-file" id="logoFile" name="logo">
+            </div>
+            <div class="form-group">
+                <label for="idOfLesson"><strong>Длительность:</strong></label>
+                <input type="number" name="duration" class="form-control" id="durationOfLesson" value="<%= lesson.duration %>">
+            </div>
+            <p>
+                <strong>Создан: </strong>
+                <%= lesson.createdAt %>
+            </p>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+        </form>
     </div>
+    <hr>
     <p>
         <a href="/create/<%= project.url %>/<%= lesson.url %>/create-task">
             <button class="btn btn-primary">Создать задание</button>
