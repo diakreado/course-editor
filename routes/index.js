@@ -8,14 +8,14 @@ const models = require("../models");
 /* GET home page. */
 router.get("/", async (req, res) => {
   try {
-    const projects = await models.Project.find({}).sort({ createdAt: -1 });
+    const courses = await models.Course.find({}).sort({ createdAt: -1 });
 
     const id = req.session.userId;
     const login = req.session.userLogin;
 
     res.render("index", {
       title: config.NAME_OF_PROJECT,
-      projects: projects,
+      courses,
       user: {
         id,
         login

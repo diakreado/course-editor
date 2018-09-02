@@ -1,28 +1,26 @@
 const express = require("express");
 const router = express.Router();
 
-const config = require("../config.js");
+const models = require("../models/index.js");
 
-const models = require("../models");
-
-/* GET project */
-router.get("/:project", async (req, res, next) => {
+/* GET course */
+router.get("/:course", async (req, res, next) => {
   const id = req.session.userId;
   const login = req.session.userLogin;
 
-  const projectName = req.params.project;
-  const project = await models.Project.findOne({ url: projectName });
+  const courseURL = req.params.course;
+  const course = await models.Course.findOne({ url: courseURL });
 
-  if (!project) {
+  if (!course) {
     var err = new Error("Not Found");
     err.status = 404;
     next(err);
   } else {
-    const lessons = await models.Lesson.find({ curse: project.id });
+    const lessons = await models.Lesson.find({ curse: course.id });
 
-    res.render("project/project", {
-      title: project.title,
-      project: project,
+    res.render("courses/course", {
+      title: course.title,
+      course,
       user: {
         id,
         login
@@ -33,25 +31,25 @@ router.get("/:project", async (req, res, next) => {
 });
 
 /* GET lesson */
-router.get("/:project/lessons/:lesson", async (req, res, next) => {
+router.get("/:courses/lessons/:lesson", async (req, res, next) => {
   const id = req.session.userId;
   const login = req.session.userLogin;
 
-  const projectURL = req.params.project;
-  const project = await models.Project.findOne({ url: projectURL });
+  const courseURL = req.params.project;
+  const course = await models.Course.findOne({ url: courseURL });
   const lessonURL = req.params.lesson;
   const lesson = await models.Lesson.findOne({ url: lessonURL });
 
-  if (!project || !lesson) {
+  if (!course || !lesson) {
     var err = new Error("Not Found");
     err.status = 404;
     next(err);
   } else {
     const tasks = await models.Task.find({ lesson: lesson.id });
 
-    res.render("project/lesson", {
-      title: project.title,
-      project,
+    res.render("courses/lesson", {
+      title: course.title,
+      course,
       user: {
         id,
         login
@@ -63,25 +61,25 @@ router.get("/:project/lessons/:lesson", async (req, res, next) => {
 });
 
 /* GET task */
-router.get("/:project/:lesson/tasks/:task", async (req, res, next) => {
+router.get("/:course/:lesson/tasks/:task", async (req, res, next) => {
   const id = req.session.userId;
   const login = req.session.userLogin;
 
-  const projectURL = req.params.project;
-  const project = await models.Project.findOne({ url: projectURL });
+  const courseURL = req.params.course;
+  const course = await models.Course.findOne({ url: courseURL });
   const lessonURL = req.params.lesson;
   const lesson = await models.Lesson.findOne({ url: lessonURL });
   const taskURL = req.params.task;
   const task = await models.Task.findOne({ url: taskURL });
 
-  if (!project || !lesson || !task) {
+  if (!course || !lesson || !task) {
     var err = new Error("Not Found");
     err.status = 404;
     next(err);
   } else {
-    res.render("project/task", {
-      title: project.title,
-      project,
+    res.render("courses/task", {
+      title: course.title,
+      course,
       user: {
         id,
         login

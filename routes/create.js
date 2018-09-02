@@ -33,16 +33,44 @@ router.post("/create-project", async (req, res) => {
       category,
       authors
     } = req.body;
-    const curse = await models.Project.create({
-      title,
-      discripiton,
-      logo,
-      complexity,
-      category,
-      authors,
-      owner: userId
-    });
-    res.redirect("/create/" + curse.url);
+
+    if (
+      !title ||
+      !discripiton ||
+      !logo ||
+      !complexity ||
+      !category ||
+      !authors
+    ) {
+      const fields = [];
+      if (!title) fields.push("title");
+      if (!discripiton) fields.push("discripiton");
+      if (!logo) fields.push("logo");
+      if (!complexity) fields.push("complexity");
+      if (!category) fields.push("category");
+      if (!authors) fields.push("authors");
+
+      res.json({
+        ok: false,
+        error: "Все поля должны быть заполнены!",
+        fields
+      });
+    } else {
+      const curse = await models.Project.create({
+        title,
+        discripiton,
+        logo,
+        complexity,
+        category,
+        authors,
+        owner: userId
+      });
+
+      res.json({
+        ok: true,
+        url: "/create/" + curse.url
+      });
+    }
   }
 });
 

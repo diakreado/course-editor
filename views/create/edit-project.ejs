@@ -1,12 +1,17 @@
 <% include ../layout/header %>
     <h2>
-        <%= title %>
+        <%= title %> (не опубликовано)
     </h2>
     <p>
-        <a href="/">На главную</a>
+        <a href="/">На главную</a> 
     </p>
     <div class="modal-body">
         <form method="post">
+        <p>
+            <button type="submit" name="save" class="btn btn-primary save-curse">Сохранить</button>
+            <button type="submit" name="publish" class="btn btn-secondary publish-curse">Опубликовать</button>
+            <button type="submit" name="delete" class="btn btn-danger delete-curse">Удалить</button>
+        </p>
             <h3>
                 <div class="form-group">
                     <label for="nameOfCourse"><strong>Курс:</strong></label>
@@ -72,11 +77,8 @@
                 <label for="authorsOfCourse"> <strong>Авторы курса :</strong> </label>
                 <input type="text" name="authors" class="form-control" id="authorsOfCourse" value="<%=project.authors%>">
             </div>
-            <p>
-                <strong>Создан: </strong>
-                <%= project.createdAt %>
-            </p>
-            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <strong>Создан: </strong>
+            <%= project.createdAt %>
         </form>
     </div>
     <hr>

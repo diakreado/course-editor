@@ -7,7 +7,7 @@ const lessonSchema = new Schema(
   {
     curse: {
       type: Schema.Types.ObjectId,
-      ref: "Project"
+      ref: "Course"
     },
     number: {
       type: Number
