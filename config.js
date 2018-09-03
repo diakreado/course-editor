@@ -5,7 +5,6 @@ const root = path.join.bind(this, __dirname);
 dotenv.config({ path: root(".env") });
 
 module.exports = {
-  NAME_OF_PROJECT: "Редактор курсов",
   MONGO_URL: process.env.MONGO_URL,
   SESSION_SECRET: process.env.SESSION_SECRET,
   IS_PRODUCTION: process.env.NODE_ENV === "production",

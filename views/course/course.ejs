@@ -2,15 +2,15 @@
     <h3>
         Курс:
         <b>
-            <%= project.title %>
+            <%= course.title %>
         </b>
     </h3>
     <p>
         <a href="/">На главную</a>
     </p>
     <p>
-        <% if(user.id && user.login && user.id == project.owner) { %>
-            <a href="/create/<%= project.url %>">
+        <% if(user.id && user.login && user.id == course.owner) { %>
+            <a href="/edit/course/<%= course.id %>">
                 <button class="btn btn-primary add-new-project">Редактировать</button>
             </a>
             <% } %>
@@ -19,30 +19,30 @@
         <div class="first-column">
             <p>
                 <strong>Описание: </strong>
-                <%= project.discripiton %>
+                <%= course.discripiton %>
             </p>
             <p>
                 <strong>Сложность: </strong>
-                <%= project.complexity %>
+                <%= course.complexity %>
             </p>
             <p>
                 <strong>Категория: </strong>
-                <%= project.category %>
+                <%= course.category %>
             </p>
             <p>
                 <strong>Авторы: </strong>
-                <%= project.authors %>
+                <%= course.authors %>
             </p>
             <p>
                 <strong>Создан: </strong>
-                <%= project.createdAt %>
+                <%= course.createdAt %>
             </p>
             <ul>
                 <% lessons.forEach(function(lesson) { %>
                     <li>
                         <h4>
                             <b>
-                                <a href="/projects/<%= project.url %>/lessons/<%= lesson.url %>">
+                                <a href="/courses/<%= course.url %>/lessons/<%= lesson.url %>">
                                     <%= lesson.title %>
                                 </a>
                             </b>

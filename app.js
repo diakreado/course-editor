@@ -7,9 +7,10 @@ const bodyParser = require("body-parser");
 
 const index = require("./routes/index");
 const create = require("./routes/create");
+const edit = require("./routes/edit");
 const auth = require("./routes/auth");
-const courses = require("./routes/courses");
-const userProjects = require("./routes/user-projects");
+const course = require("./routes/course");
+const myCourses = require("./routes/my-courses");
 
 const staticAsset = require("static-asset");
 
@@ -60,9 +61,10 @@ app.use(
 
 app.use("/", index);
 app.use("/create", create);
+app.use("/edit", edit);
 app.use("/auth", auth);
-app.use("/courses", courses);
-app.use("/user-projects", userProjects);
+app.use("/course", course);
+app.use("/my-courses", myCourses);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {

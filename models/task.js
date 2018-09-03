@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const URLSlugs = require("mongoose-url-slugs");
-const tr = require("transliter");
 
 const taskSchema = new Schema(
   {
@@ -34,12 +32,6 @@ const taskSchema = new Schema(
   }
 );
 
-taskSchema.plugin(
-  URLSlugs("text", {
-    field: "url",
-    generator: text => tr.slugify(text)
-  })
-);
 taskSchema.set("toJSON", {
   virtuals: true
 });

@@ -1,32 +1,38 @@
 const express = require("express");
 const router = express.Router();
-
-const models = require("../models/index.js");
+const models = require("../models");
 
 /* GET course */
-router.get("/:course", async (req, res, next) => {
-  const id = req.session.userId;
-  const login = req.session.userLogin;
+router.get("/:courseId", async (req, res, next) => {
+  const userLogin = req.session.userLogin;
+  const userId = req.session.userId;
 
-  const courseURL = req.params.course;
-  const course = await models.Course.findOne({ url: courseURL });
+  const courseId = req.params.courseId;
 
-  if (!course) {
+  if (!courseId.match(/^[0-9a-fA-F]{24}$/)) {
     var err = new Error("Not Found");
     err.status = 404;
     next(err);
   } else {
-    const lessons = await models.Lesson.find({ curse: course.id });
+    const course = await models.Course.findById(courseId);
 
-    res.render("courses/course", {
-      title: course.title,
-      course,
-      user: {
-        id,
-        login
-      },
-      lessons
-    });
+    if (!course) {
+      var err = new Error("Not Found");
+      err.status = 404;
+      next(err);
+    } else {
+      const lessons = await models.Lesson.find({ curse: course.id });
+
+      res.render("course/course", {
+        title: course.title,
+        course,
+        user: {
+          id: userId,
+          login: userLogin
+        },
+        lessons
+      });
+    }
   }
 });
 

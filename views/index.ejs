@@ -4,10 +4,10 @@
     </h1>
     <p>
         <% if(user.id && user.login) { %>
-            <a href="/create/create-project">
+            <a href="/create/course">
                 <button class="btn btn-primary add-new-project">Добавить новый</button>
             </a>
-            <a href="/user-projects">
+            <a href="/my-courses">
                 <button class="btn btn-primary">Мои проекты</button>
             </a>
             <% } %>
@@ -20,7 +20,7 @@
                     <li>
                         <h4>
                             <b>
-                                <a href="courses/<%= course.url %>">
+                                <a href="course/<%= course.id %>">
                                     <%= course.title %>
                                 </a>
                             </b>

@@ -100,7 +100,7 @@ $(function() {
       type: "POST",
       data: JSON.stringify(data),
       contentType: "application/json",
-      url: "/create/create-project"
+      url: "/create/course"
     }).done(function(data) {
       if (!data.ok) {
         removeErrors();

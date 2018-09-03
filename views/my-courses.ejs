@@ -7,7 +7,7 @@
     </p>
     <p>
         <% if(user.id && user.login) { %>
-            <a href="/create/create-project">
+            <a href="/create/course">
                 <button class="btn btn-primary add-new-project">Добавить новый</button>
             </a>
             <% } %>
@@ -16,18 +16,18 @@
     <div class="modal-body">
         <div class="first-column">
             <ul>
-                <% projects.forEach(function(project) { %>
+                <% courses.forEach(function(course) { %>
                     <li>
                         <h4>
                             <b>
-                                <a href="/projects/<%= project.url %>">
-                                    <%= project.title %>
+                                <a href="/course/<%= course.id  %>">
+                                    <%= course.title %>
                                 </a>
                             </b>
                         </h4>
                         <p>
                             <strong>Краткое описание: </strong>
-                            <%= project.discripiton.substring(0, 100)%>...
+                            <%= course.discripiton.substring(0, 100)%>...
                         </p>
                     </li>
                     <% }); %>

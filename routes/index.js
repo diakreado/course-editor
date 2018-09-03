@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
     const login = req.session.userLogin;
 
     res.render("index", {
-      title: config.NAME_OF_PROJECT,
+      title: "Редактор курсов",
       courses,
       user: {
         id,
