@@ -19,8 +19,6 @@ router.get("/", async (req, res) => {
 
 /* POST Create course */
 router.post("/", async (req, res) => {
-  console.log(123);
-
   const login = req.session.userLogin;
   const userId = req.session.userId;
 

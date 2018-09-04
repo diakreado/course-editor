@@ -15,7 +15,8 @@
 
     <div class="modal-body">
         <div class="first-column">
-            <ul>
+        <% if (courses.length != 0) { %>
+                <ul>
                 <% courses.forEach(function(course) { %>
                     <li>
                         <h4>
@@ -32,6 +33,9 @@
                     </li>
                     <% }); %>
             </ul>
+            <% } else  { %>
+                Курсов нет, но вы держитесь...
+            <% } %>
         </div>
         <div class="second-column">
             <% include layout/sidebar %>

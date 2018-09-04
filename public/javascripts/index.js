@@ -93,7 +93,8 @@ $(function() {
       logo: $("#logoFile").val(),
       complexity: $("form")[0]["complexityOfCurse"].value,
       category: $("#categoryOfCurse").val(),
-      authors: $("#authorsOfCourse").val()
+      authors: $("#authorsOfCourse").val(),
+      published: $("#published").val()
     };
 
     $.ajax({
@@ -118,42 +119,4 @@ $(function() {
       }
     });
   });
-
-  // Edit curse
-  // $(".save-curse").on("click", function(e) {
-  //   e.preventDefault();
-
-  //   removeErrors();
-
-  //   var data = {
-  //     title: $("#nameOfCourse").val(),
-  //     discripiton: $("#discripitonOfCourse").val(),
-  //     logo: $("#logoFile").val(),
-  //     complexity: $("form")[0]["complexityOfCurse"].value,
-  //     category: $("#categoryOfCurse").val(),
-  //     authors: $("#authorsOfCourse").val()
-  //   };
-
-  //   $.ajax({
-  //     type: "POST",
-  //     data: JSON.stringify(data),
-  //     contentType: "application/json",
-  //     url: "/create/create-project"
-  //   }).done(function(data) {
-  //     if (!data.ok) {
-  //       removeErrors();
-
-  //       $(".header p").after('<p class="error">' + data.error + "</p>");
-  //       if (data.fields) {
-  //         data.fields.forEach(function(item) {
-  //           $("input[name=" + item + "]").addClass("error");
-  //           $("textarea[name=" + item + "]").addClass("error");
-  //         });
-  //       }
-  //     } else {
-  //       removeErrors();
-  //       location.href = data.url;
-  //     }
-  //   });
-  // });
 });

@@ -34,14 +34,14 @@ router.get("/:courseId", async (req, res, next) => {
   }
 });
 
-// POST Edit course
-router.post("/:course", async (req, res, next) => {
+/* POST Edit course */
+router.post("/", async (req, res, next) => {
   const login = req.session.userLogin;
   const userId = req.session.userId;
 
-  const courseURL = req.params.course;
-  const course = await models.Course.findOne({ url: courseURL });
+  const courseId = req.body.id;
 
+  const course = await models.Course.findById(courseId);
   if (!course) {
     var err = new Error("Not Found");
     err.status = 404;
@@ -49,7 +49,15 @@ router.post("/:course", async (req, res, next) => {
   } else if (!login || !userId || userId != course.owner) {
     res.redirect("/");
   } else {
-    let { title, discripiton, logo, complexity, category, authors } = req.body;
+    let {
+      title,
+      discripiton,
+      logo,
+      complexity,
+      category,
+      authors,
+      published
+    } = req.body;
 
     if (logo == "") {
       logo = course.logo;
@@ -67,7 +75,8 @@ router.post("/:course", async (req, res, next) => {
         complexity,
         category,
         authors,
-        owner: userId
+        owner: userId,
+        published
       },
       { new: true }
     );
