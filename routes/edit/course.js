@@ -36,17 +36,16 @@ router.get("/:courseId", async (req, res, next) => {
 
 /* POST Edit course */
 router.post("/", async (req, res, next) => {
-  const login = req.session.userLogin;
+  const userLogin = req.session.userLogin;
   const userId = req.session.userId;
 
   const courseId = req.body.id;
-
   const course = await models.Course.findById(courseId);
   if (!course) {
     var err = new Error("Not Found");
     err.status = 404;
     next(err);
-  } else if (!login || !userId || userId != course.owner) {
+  } else if (!userLogin || !userId || userId != course.owner) {
     res.redirect("/");
   } else {
     let {
@@ -82,6 +81,37 @@ router.post("/", async (req, res, next) => {
     );
 
     if (!newCourse) {
+      res.json({
+        ok: false,
+        error: "Что-то пошло не так"
+      });
+    } else {
+      res.json({
+        ok: true
+      });
+    }
+  }
+});
+
+/* DELETE edit course */
+router.delete("/", async (req, res, next) => {
+  const userLogin = req.session.userLogin;
+  const userId = req.session.userId;
+
+  console.log("DELETE edit course");
+
+  const courseId = req.body.id;
+  const course = await models.Course.findById(courseId);
+  if (!course) {
+    var err = new Error("Not Found");
+    err.status = 404;
+    next(err);
+  } else if (!userLogin || !userId || userId != course.owner) {
+    res.redirect("/");
+  } else {
+    const removedCourse = await models.Course.findByIdAndRemove(course.id);
+
+    if (!removedCourse) {
       res.json({
         ok: false,
         error: "Что-то пошло не так"

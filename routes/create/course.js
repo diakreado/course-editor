@@ -4,10 +4,10 @@ const models = require("../../models");
 
 /* GET Create course */
 router.get("/", async (req, res) => {
-  const login = req.session.userLogin;
+  const userLogin = req.session.userLogin;
   const userId = req.session.userId;
 
-  if (!login || !userId) {
+  if (!userLogin || !userId) {
     res.redirect("/");
   } else {
     const title = "Добавить курс";
@@ -19,10 +19,10 @@ router.get("/", async (req, res) => {
 
 /* POST Create course */
 router.post("/", async (req, res) => {
-  const login = req.session.userLogin;
+  const userLogin = req.session.userLogin;
   const userId = req.session.userId;
 
-  if (!login || !userId) {
+  if (!userLogin || !userId) {
     res.redirect("/");
   } else {
     const {
@@ -31,7 +31,8 @@ router.post("/", async (req, res) => {
       logo,
       complexity,
       category,
-      authors
+      authors,
+      published
     } = req.body;
 
     if (
@@ -63,12 +64,13 @@ router.post("/", async (req, res) => {
         complexity,
         category,
         authors,
-        owner: userId
+        owner: userId,
+        published
       });
 
       res.json({
         ok: true,
-        url: "/create/" + curse.id
+        url: "/edit/course/" + curse.id
       });
     }
   }

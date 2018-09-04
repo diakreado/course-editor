@@ -1,5 +1,5 @@
 $(function() {
-  /* Edit course */
+  /* EDIT Save course */
   $(".save-curse").on("click", function(e) {
     e.preventDefault();
 
@@ -23,6 +23,27 @@ $(function() {
       if (!data.ok) {
       } else {
         location.reload();
+      }
+    });
+  });
+
+  /* EDIT Delete course */
+  $(".delete-curse").on("click", function(e) {
+    e.preventDefault();
+
+    var data = {
+      id: $("#courseId").val()
+    };
+
+    $.ajax({
+      type: "DELETE",
+      data: JSON.stringify(data),
+      contentType: "application/json",
+      url: "/edit/course"
+    }).done(function(data) {
+      if (!data.ok) {
+      } else {
+        location.href = "/";
       }
     });
   });

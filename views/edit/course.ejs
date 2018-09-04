@@ -81,10 +81,10 @@
                 <%= course.createdAt %>
             </div>
             <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="published" <% if(course.published) { %> checked <% } %>>
+                <input type="checkbox" class="form-check-input" id="published" name="published" <% if(course.published) { %> checked <% } %>>
                 <label class="form-check-label" for="published">Опубликовано</label>
-          </div>
-          <input id="courseId" name="id" type="hidden" value="<%= course.id %>">
+            </div>
+            <input id="courseId" name="id" type="hidden" value="<%= course.id %>">
         </form>
     </div>
     <hr>

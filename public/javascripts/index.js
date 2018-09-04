@@ -94,7 +94,7 @@ $(function() {
       complexity: $("form")[0]["complexityOfCurse"].value,
       category: $("#categoryOfCurse").val(),
       authors: $("#authorsOfCourse").val(),
-      published: $("#published").val()
+      published: $("#published").is(":checked")
     };
 
     $.ajax({
