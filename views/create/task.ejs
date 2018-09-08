@@ -2,7 +2,7 @@
     <h3>
         Курс:
         <b>
-            <%= title %>
+            <%= course.title %>
         </b>
     </h3>
     <h4>
@@ -14,8 +14,8 @@
 
     <p>
         <a href="/">На главную</a> &nbsp &nbsp
-        <a href="/create/<%= project.url %>">К курсу</a> &nbsp &nbsp
-        <a href="/create/<%= project.url %>/lessons/<%= lesson.url %>">К уроку</a>
+        <a href="/edit/course/<%= course.id %>">К курсу</a> &nbsp &nbsp
+        <a href="/edit/lesson/<%= lesson.id %>">К уроку</a>
     </p>
     <h4>Добавить новую задачу</h4>
 
@@ -37,15 +37,8 @@
                 <label for="soundFile">Прикрепите звуковой файл:</label>
                 <input type="file" class="form-control-file" id="soundFile" name="sound">
             </div>
-            <div class="form-group">
-                <label for="pitchFile">Прикрепите файл с пичем:</label>
-                <input type="file" class="form-control-file" id="pitchFile" name="pitch">
-            </div>
-            <div class="form-group">
-                <label for="textMarkupFile">Прикрепите файл с разметкой текста:</label>
-                <input type="file" class="form-control-file" id="textMarkupFile" name="textMarkup">
-            </div>
-            <button type="submit" class="btn btn-primary">Создать урок</button>
+            <button type="submit" class="btn btn-primary create-task">Создать урок</button>
+            <input id="lessonId" name="id" type="hidden" value="<%= lesson.id %>">
         </form>
     </div>
 

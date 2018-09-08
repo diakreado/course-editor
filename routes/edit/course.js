@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const models = require("../../models");
 
-/* GET edit course */
+/* GET Edit course */
 router.get("/:courseId", async (req, res, next) => {
   const userLogin = req.session.userLogin;
   const userId = req.session.userId;
@@ -23,7 +23,9 @@ router.get("/:courseId", async (req, res, next) => {
     } else if (!userLogin || !userId || userId != course.owner) {
       res.redirect("/");
     } else {
-      const lessons = await models.Lesson.find({ curse: course.id });
+      const lessons = await models.Lesson.find({ course: course.id }).sort({
+        createdAt: -1
+      });
       const title = "Редактирование курса";
       res.render("edit/course", {
         title,
@@ -98,8 +100,6 @@ router.delete("/", async (req, res, next) => {
   const userLogin = req.session.userLogin;
   const userId = req.session.userId;
 
-  console.log("DELETE edit course");
-
   const courseId = req.body.id;
   const course = await models.Course.findById(courseId);
   if (!course) {
@@ -109,9 +109,16 @@ router.delete("/", async (req, res, next) => {
   } else if (!userLogin || !userId || userId != course.owner) {
     res.redirect("/");
   } else {
+    const lessons = await models.Lesson.find({ course: courseId });
+    var removedTasksOK = true;
+    lessons.forEach(async lesson => {
+      const removedTasks = await models.Task.remove({ lesson: lesson.id });
+      removedTasksOK = removedTasksOK && removedTasks.ok;
+    });
+    const removedLessons = await models.Lesson.remove({ course: course.id });
     const removedCourse = await models.Course.findByIdAndRemove(course.id);
 
-    if (!removedCourse) {
+    if (!removedCourse || !removedLessons.ok || !removedTasksOK) {
       res.json({
         ok: false,
         error: "Что-то пошло не так"

@@ -22,9 +22,6 @@ const taskSchema = new Schema(
     },
     pitch: {
       type: String
-    },
-    textMarkup: {
-      type: String
     }
   },
   {

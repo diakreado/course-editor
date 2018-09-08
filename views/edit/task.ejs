@@ -5,7 +5,7 @@
     <h3>
         Курс:
         <b>
-            <%= project.title %>
+            <%= course.title %>
         </b>
     </h3>
     <h4>
@@ -16,11 +16,15 @@
     </h4>
     <p>
         <a href="/">На главную</a> &nbsp &nbsp
-        <a href="/create/<%= project.url %>">К курсу</a> &nbsp &nbsp
-        <a href="/create/<%= project.url %>/lessons/<%= lesson.url %>">К уроку</a>
+        <a href="/edit/course/<%= course.id %>">К курсу</a> &nbsp &nbsp
+        <a href="/edit/lesson/<%= lesson.id %>">К уроку</a>
     </p>
     <div class="modal-body">
         <form method="post">
+            <p>
+                <button type="submit" name="save" class="btn btn-primary save-task">Сохранить</button>
+                <button type="submit" name="delete" class="btn btn-danger delete-task">Удалить</button>
+            </p>
             <h4>
                 <div class="form-group">
                     <label for="idOfTask"><strong>Задание:</strong></label>
@@ -35,11 +39,19 @@
                 <label for="textOfTask"><strong>Текст:</strong></label>
                 <textarea class="form-control" name="text" id="textOfTask" rows="1"><%= task.text %></textarea>
             </div>
+            <div class="form-group">
+                <label for="soundFile"> <strong>Звуковой файл:</strong> <%= task.sound %> </label>
+                <input type="file" class="form-control-file" id="soundFile" name="sound">
+            </div>
+            <p>
+                <strong>Pitch: </strong>
+                <%= task.pitch %>
+            </p>
             <p>
                 <strong>Создан: </strong>
                 <%= task.createdAt %>
             </p>
-            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <input id="taskId" name="id" type="hidden" value="<%= task.id %>">
         </form>
     </div>
     <% include ../layout/footer %>

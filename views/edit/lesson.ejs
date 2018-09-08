@@ -5,15 +5,20 @@
     <h3>
         Курс:
         <b>
-            <%= project.title %>
+            <%= course.title %>
+            <% if(!course.published) { %> (не опубликовано) <% } %>
         </b>
     </h3>
     <p>
         <a href="/">На главную</a> &nbsp &nbsp
-        <a href="/create/<%= project.url %>">К курсу</a>
+        <a href="/edit/course/<%= course.id %>">К курсу</a>
     </p>
     <div class="modal-body">
         <form method="post">
+            <p>
+                <button type="submit" name="save" class="btn btn-primary save-lesson">Сохранить</button>
+                <button type="submit" name="delete" class="btn btn-danger delete-lesson">Удалить</button>
+            </p>
             <h4>
                 <div class="form-group">
                     <label for="nameOfLesson"><strong>Урок:</strong></label>
@@ -22,7 +27,7 @@
             </h4>
             <div class="form-group">
                 <label for="idOfLesson"><strong>Номер:</strong></label>
-                <input type="number" name="number" class="form-control" id="idOfLesson" value="<%= lesson.number %>">
+                <input type="number" name="number" class="form-control" id="numberOfLesson" value="<%= lesson.number %>">
             </div>
             <div class="form-group">
                 <label for="discripitonOfLesson"><strong>Описание:</strong></label>
@@ -31,7 +36,7 @@
             <div class="form-group">
                 <label for="logoFile"> <strong>Логотип:</strong> </label>
                 <%= lesson.logo %>
-                    <input type="file" class="form-control-file" id="logoFile" name="logo">
+                <input type="file" class="form-control-file" id="logoFile" name="logo">
             </div>
             <div class="form-group">
                 <label for="idOfLesson"><strong>Длительность:</strong></label>
@@ -41,12 +46,12 @@
                 <strong>Создан: </strong>
                 <%= lesson.createdAt %>
             </p>
-            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <input id="lessonId" name="id" type="hidden" value="<%= lesson.id %>">
         </form>
     </div>
     <hr>
     <p>
-        <a href="/create/<%= project.url %>/<%= lesson.url %>/create-task">
+        <a href="/create/task/<%= lesson.id %>">
             <button class="btn btn-primary">Создать задание</button>
         </a>
     </p>
@@ -55,7 +60,7 @@
             <li>
                 <h4>
                     <b>
-                        <a href="/create/<%= project.url %>/<%= lesson.url %>/tasks/<%= task.url %>">
+                        <a href="/edit/task/<%= task.id %>">
                             <%= task.number %>
                         </a>
                     </b>

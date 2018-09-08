@@ -9,7 +9,9 @@ const index = require("./routes/index");
 const create = require("./routes/create");
 const edit = require("./routes/edit");
 const auth = require("./routes/auth");
-const course = require("./routes/course");
+const course = require("./routes/course/course");
+const lesson = require("./routes/course/lesson");
+const task = require("./routes/course/task");
 const myCourses = require("./routes/my-courses");
 
 const staticAsset = require("static-asset");
@@ -64,6 +66,8 @@ app.use("/create", create);
 app.use("/edit", edit);
 app.use("/auth", auth);
 app.use("/course", course);
+app.use("/lesson", lesson);
+app.use("/task", task);
 app.use("/my-courses", myCourses);
 
 /// catch 404 and forwarding to error handler

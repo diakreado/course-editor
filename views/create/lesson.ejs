@@ -2,11 +2,12 @@
     <h3>
         Курс:
         <b>
-            <%= title %>
+            <%= course.title %>
         </b>
     </h3>
     <p>
-        <a href="/">На главную</a>
+        <a href="/">На главную</a> &nbsp &nbsp
+        <a href="/edit/course/<%= course.id %>">К курсу</a>
     </p>
     <h4>Добавить новый урок</h4>
 
@@ -18,7 +19,7 @@
             </div>
             <div class="form-group">
                 <label for="idOfLesson">Введите номер урока:</label>
-                <input type="number" name="number" class="form-control" id="idOfLesson">
+                <input type="number" name="number" class="form-control" id="numberOfLesson">
             </div>
             <div class="form-group">
                 <label for="discripitonOfLesson">Введите описание курса:</label>
@@ -32,7 +33,8 @@
                 <label for="idOfLesson">Введите длительность урока:</label>
                 <input type="number" name="duration" class="form-control" id="durationOfLesson">
             </div>
-            <button type="submit" class="btn btn-primary">Создать урок</button>
+            <button type="submit" class="btn btn-primary create-lesson">Создать урок</button>
+            <input id="courseId" name="id" type="hidden" value="<%= course.id %>">
         </form>
     </div>
 

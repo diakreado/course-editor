@@ -4,6 +4,7 @@
         <b>
             <%= course.title %>
         </b>
+        <% if(!course.published) { %> (не опубликовано) <% } %>
     </h3>
     <p>
         <a href="/">На главную</a>
@@ -42,7 +43,7 @@
                     <li>
                         <h4>
                             <b>
-                                <a href="/courses/<%= course.url %>/lessons/<%= lesson.url %>">
+                                <a href="/lesson/<%= lesson.id %>">
                                     <%= lesson.title %>
                                 </a>
                             </b>

@@ -47,4 +47,99 @@ $(function() {
       }
     });
   });
+
+  /* EDIT Delete lesson */
+  $(".delete-lesson").on("click", function(e) {
+    e.preventDefault();
+
+    var data = {
+      id: $("#lessonId").val()
+    };
+
+    $.ajax({
+      type: "DELETE",
+      data: JSON.stringify(data),
+      contentType: "application/json",
+      url: "/edit/lesson"
+    }).done(function(data) {
+      if (!data.ok) {
+      } else {
+        location.href = data.url;
+      }
+    });
+  });
+
+  /* EDIT Save lesson */
+  $(".save-lesson").on("click", function(e) {
+    e.preventDefault();
+
+    var data = {
+      title: $("#nameOfLesson").val(),
+      number: $("#numberOfLesson").val(),
+      discripiton: $("#discripitonOfLesson").val(),
+      logo: $("#logoFile").val(),
+      duration: $("#durationOfLesson").val(),
+      courseId: $("#courseId").val(),
+      id: $("#lessonId").val()
+    };
+
+    $.ajax({
+      type: "POST",
+      data: JSON.stringify(data),
+      contentType: "application/json",
+      url: "/edit/lesson"
+    }).done(function(data) {
+      if (!data.ok) {
+      } else {
+        location.reload();
+      }
+    });
+  });
+
+  /* EDIT Save task */
+  $(".save-task").on("click", function(e) {
+    e.preventDefault();
+
+    var data = {
+      number: $("#idOfTask").val(),
+      instructions: $("#instructionsOfTask").val(),
+      text: $("#textOfTask").val(),
+      sound: $("#soundFile").val(),
+      pitch: $("#pitchFile").val(),
+      id: $("#taskId").val()
+    };
+
+    $.ajax({
+      type: "POST",
+      data: JSON.stringify(data),
+      contentType: "application/json",
+      url: "/edit/task"
+    }).done(function(data) {
+      if (!data.ok) {
+      } else {
+        location.reload();
+      }
+    });
+  });
+
+  /* EDIT Delete task */
+  $(".delete-task").on("click", function(e) {
+    e.preventDefault();
+
+    var data = {
+      id: $("#taskId").val()
+    };
+
+    $.ajax({
+      type: "DELETE",
+      data: JSON.stringify(data),
+      contentType: "application/json",
+      url: "/edit/task"
+    }).done(function(data) {
+      if (!data.ok) {
+      } else {
+        location.href = data.url;
+      }
+    });
+  });
 });

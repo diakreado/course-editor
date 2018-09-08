@@ -2,7 +2,7 @@
     <h3>
         Курс:
         <b>
-            <%= project.title %>
+            <%= course.title %>
         </b>
     </h3>
     <h4>
@@ -13,12 +13,12 @@
     </h4>
     <p>
         <a href="/">На главную</a> &nbsp &nbsp
-        <a href="/courses/<%= project.url %>">К курсу</a>
+        <a href="/course/<%= course.id %>">К курсу</a>
     </p>
     <p>
-        <% if(user.id && user.login && user.id == project.owner) { %>
-            <a href="/create/<%= project.url %>/lessons/<%= lesson.url %>">
-                <button class="btn btn-primary add-new-project">Редактировать</button>
+        <% if(user.id && user.login && user.id == course.owner) { %>
+            <a href="/create/<%= course.url %>/lessons/<%= lesson.url %>">
+                <button class="btn btn-primary">Редактировать</button>
             </a>
             <% } %>
     </p>
@@ -45,7 +45,7 @@
                     <li>
                         <h4>
                             <b>
-                                <a href="/projects/<%= project.url %>/<%= lesson.url %>/tasks/<%= task.url %>">
+                                <a href="/projects/<%= course.id %>/<%= lesson.id %>/tasks/<%= task.id %>">
                                     <%= task.number %>
                                 </a>
                             </b>

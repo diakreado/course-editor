@@ -3,58 +3,64 @@ const router = express.Router();
 const models = require("../../models");
 
 // GET Create task
-router.get("/:project/:lesson/create-task", async (req, res, next) => {
-  const login = req.session.userLogin;
+router.get("/:lessonId", async (req, res, next) => {
+  const userLogin = req.session.userLogin;
   const userId = req.session.userId;
 
-  const projectURL = req.params.project;
-  const project = await models.Project.findOne({ url: projectURL });
-  const lessonURL = req.params.lesson;
-  const lesson = await models.Lesson.findOne({ url: lessonURL });
-
-  if (!project || !lesson) {
+  const lessonId = req.params.lessonId;
+  if (!lessonId.match(/^[0-9a-fA-F]{24}$/)) {
     var err = new Error("Not Found");
     err.status = 404;
     next(err);
-  } else if (!login || !userId || userId != project.owner) {
-    res.redirect("/");
   } else {
-    res.render("create/create-task", {
-      title: project.title,
-      project,
-      lesson
-    });
+    const lesson = await models.Lesson.findById(lessonId);
+    const course = await models.Course.findById(lesson.course);
+    if (!lesson || !course) {
+      var err = new Error("Not Found");
+      err.status = 404;
+      next(err);
+    } else if (!userLogin || !userId || userId != course.owner) {
+      res.redirect("/");
+    } else {
+      res.render("create/task", {
+        title: course.title,
+        course,
+        lesson
+      });
+    }
   }
 });
 
 // POST Create task
-router.post("/:project/:lesson/create-task", async (req, res, next) => {
-  const login = req.session.userLogin;
+router.post("/", async (req, res, next) => {
+  const userLogin = req.session.userLogin;
   const userId = req.session.userId;
 
-  const projectURL = req.params.project;
-  const project = await models.Project.findOne({ url: projectURL });
-  const lessonURL = req.params.lesson;
-  const lesson = await models.Lesson.findOne({ url: lessonURL });
+  const lessonId = req.body.lessonId;
+  const lesson = await models.Lesson.findById(lessonId);
+  const course = await models.Course.findById(lesson.course);
 
-  if (!project || !lesson) {
+  if (!course || !lesson) {
     var err = new Error("Not Found");
     err.status = 404;
     next(err);
-  } else if (!login || !userId || userId != project.owner) {
+  } else if (!userLogin || !userId || userId != course.owner) {
     res.redirect("/");
   } else {
-    const { number, instructions, text, sound, pitch, textMarkup } = req.body;
+    const { number, instructions, text, sound } = req.body;
     const task = await models.Task.create({
       lesson: lesson.id,
       number,
       instructions,
       text,
       sound,
-      pitch,
-      textMarkup
+      pitch: "void"
     });
-    res.redirect("/create/" + projectURL + "/lessons/" + lesson.url);
+
+    res.json({
+      ok: true,
+      url: "/edit/task/" + task.id
+    });
   }
 });
 

@@ -1,6 +1,7 @@
 <% include ../layout/header %>
     <h2>
-        <%= title %> (не опубликовано)
+        <%= title %> 
+        <% if(!course.published) { %> (не опубликовано) <% } %>
     </h2>
     <p>
         <a href="/">На главную</a> 
@@ -89,16 +90,16 @@
     </div>
     <hr>
     <p>
-        <a href="/create/<%=course.url %>/create-lesson">
+        <a href="/create/lesson/<%= course.id %>">
             <button class="btn btn-primary">Создать урок</button>
-        </a>
+        </a> 
     </p>
     <ul>
         <% lessons.forEach(function(lesson) { %>
             <li>
                 <h4>
                     <b>
-                        <a href="/create/<%= course.url %>/lessons/<%= lesson.url %>">
+                        <a href="/edit/lesson/<%= lesson.id %>">
                             <%= lesson.title %>
                         </a>
                     </b>

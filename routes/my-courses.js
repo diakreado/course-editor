@@ -7,21 +7,24 @@ const models = require("../models");
 router.get("/", async (req, res) => {
   try {
     const userId = req.session.userId;
+    const userLogin = req.session.userLogin;
+
     const courses = await models.Course.find({ owner: userId }).sort({
       createdAt: -1
     });
 
-    const id = req.session.userId;
-    const login = req.session.userLogin;
-
-    res.render("my-courses", {
-      title: "Мои проекты",
-      courses,
-      user: {
-        id,
-        login
-      }
-    });
+    if (!userLogin || !userId) {
+      res.redirect("/");
+    } else {
+      res.render("my-courses", {
+        title: "Мои проекты",
+        courses,
+        user: {
+          id: userId,
+          login: userLogin
+        }
+      });
+    }
   } catch (error) {
     throw new Error("Server Error");
   }

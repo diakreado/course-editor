@@ -2,46 +2,51 @@ const express = require("express");
 const router = express.Router();
 const models = require("../../models");
 
-// GET Create lesson
-router.get("/:course/create-lesson", async (req, res, next) => {
-  const login = req.session.userLogin;
+/* GET Create lesson */
+router.get("/:courseId", async (req, res, next) => {
+  const userLogin = req.session.userLogin;
   const userId = req.session.userId;
 
-  const courseURL = req.params.project;
-  const course = await models.Course.findOne({ url: courseURL });
-
-  if (!course) {
+  const courseId = req.params.courseId;
+  if (!courseId.match(/^[0-9a-fA-F]{24}$/)) {
     var err = new Error("Not Found");
     err.status = 404;
     next(err);
-  } else if (!login || !userId || userId != course.owner) {
-    res.redirect("/");
   } else {
-    res.render("create/create-lesson", {
-      title: course.title
-    });
+    const course = await models.Course.findById(courseId);
+    if (!course) {
+      var err = new Error("Not Found");
+      err.status = 404;
+      next(err);
+    } else if (!userLogin || !userId || userId != course.owner) {
+      res.redirect("/");
+    } else {
+      res.render("create/lesson", {
+        title: course.title,
+        course
+      });
+    }
   }
 });
 
 // POST Create lesson
-router.post("/:course/create-lesson", async (req, res, next) => {
-  const login = req.session.userLogin;
+router.post("/", async (req, res, next) => {
+  const userLogin = req.session.userLogin;
   const userId = req.session.userId;
 
-  const courseURL = req.params.project;
-  const course = await models.Course.findOne({ url: courseURL });
-
+  const courseId = req.body.id;
+  const course = await models.Course.findById(courseId);
   if (!course) {
     var err = new Error("Not Found");
     err.status = 404;
     next(err);
-  } else if (!login || !userId || userId != course.owner) {
+  } else if (!userLogin || !userId || userId != course.owner) {
     res.redirect("/");
   } else {
     const { title, number, discripiton, logo, duration } = req.body;
 
     const lesson = await models.Lesson.create({
-      curse: course.id,
+      course: course.id,
       title,
       number,
       discripiton,
@@ -49,7 +54,10 @@ router.post("/:course/create-lesson", async (req, res, next) => {
       duration
     });
 
-    res.redirect("/create/" + courseURL + "/lessons/" + lesson.url);
+    res.json({
+      ok: true,
+      url: "/edit/lesson/" + lesson.id
+    });
   }
 });
 
