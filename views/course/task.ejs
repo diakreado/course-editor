@@ -2,7 +2,7 @@
     <h3>
         Курс:
         <b>
-            <%= project.title %>
+            <%= course.title %>
         </b>
     </h3>
     <h4>
@@ -18,13 +18,13 @@
     </h5>
     <p>
         <a href="/">На главную</a> &nbsp &nbsp
-        <a href="/projects/<%= project.url %>">К курсу</a> &nbsp &nbsp
-        <a href="/projects/<%= project.url %>/lessons/<%= lesson.url %>">К уроку</a>
+        <a href="/course/<%= course.id %>">К курсу</a> &nbsp &nbsp
+        <a href="/lesson/<%= lesson.id %>">К уроку</a>
     </p>
     <p>
-        <% if(user.id && user.login && user.id == project.owner) { %>
-            <a href="/create/<%= project.url %>/<%= lesson.url %>/tasks/<%= task.url %>">
-                <button class="btn btn-primary add-new-project">Редактировать</button>
+        <% if(user.id && user.login && user.id == course.owner) { %>
+            <a href="/edit/task/<%= task.id %>">
+                <button class="btn btn-primary">Редактировать</button>
             </a>
             <% } %>
     </p>
@@ -43,6 +43,10 @@
                 <%= task.createdAt %>
             </p>
 
+            <input id="taskId" name="id" type="hidden" value="<%= task.id %>">
+
+            <div id="waveform"></div>
+
         </div>
         <div class="second-column">
             <% include ../layout/sidebar %>
@@ -50,3 +54,7 @@
     </div>
 
     <% include ../layout/footer %>
+
+
+<script src="<%= assetFingerprint('/javascripts/waveform.js') %>"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/2.0.6/wavesurfer.min.js"></script>

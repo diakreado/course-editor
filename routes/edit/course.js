@@ -24,7 +24,7 @@ router.get("/:courseId", async (req, res, next) => {
       res.redirect("/");
     } else {
       const lessons = await models.Lesson.find({ course: course.id }).sort({
-        createdAt: -1
+        number: 1
       });
       const title = "Редактирование курса";
       res.render("edit/course", {
@@ -53,16 +53,11 @@ router.post("/", async (req, res, next) => {
     let {
       title,
       discripiton,
-      logo,
       complexity,
       category,
       authors,
       published
     } = req.body;
-
-    if (logo == "") {
-      logo = course.logo;
-    }
 
     const newCourse = await models.Course.findOneAndUpdate(
       {
@@ -72,7 +67,6 @@ router.post("/", async (req, res, next) => {
       {
         title,
         discripiton,
-        logo,
         complexity,
         category,
         authors,

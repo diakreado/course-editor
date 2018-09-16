@@ -53,7 +53,7 @@ router.post("/", async (req, res, next) => {
   } else if (!userLogin || !userId || userId != course.owner) {
     res.redirect("/");
   } else {
-    const { number, instructions, text, sound } = req.body;
+    const { number, instructions, text } = req.body;
 
     const newTask = await models.Task.findOneAndUpdate(
       {
@@ -63,9 +63,7 @@ router.post("/", async (req, res, next) => {
       {
         number,
         instructions,
-        text,
-        sound,
-        pitch: "void"
+        text
       },
       { new: true }
     );

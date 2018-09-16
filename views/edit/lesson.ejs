@@ -34,11 +34,6 @@
                 <textarea class="form-control" name="discripiton" id="discripitonOfLesson" rows="3"><%= lesson.discripiton %></textarea>
             </div>
             <div class="form-group">
-                <label for="logoFile"> <strong>Логотип:</strong> </label>
-                <%= lesson.logo %>
-                <input type="file" class="form-control-file" id="logoFile" name="logo">
-            </div>
-            <div class="form-group">
                 <label for="idOfLesson"><strong>Длительность:</strong></label>
                 <input type="number" name="duration" class="form-control" id="durationOfLesson" value="<%= lesson.duration %>">
             </div>

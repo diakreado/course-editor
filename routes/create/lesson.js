@@ -43,14 +43,13 @@ router.post("/", async (req, res, next) => {
   } else if (!userLogin || !userId || userId != course.owner) {
     res.redirect("/");
   } else {
-    const { title, number, discripiton, logo, duration } = req.body;
+    const { title, number, discripiton, duration } = req.body;
 
     const lesson = await models.Lesson.create({
       course: course.id,
       title,
       number,
       discripiton,
-      logo,
       duration
     });
 

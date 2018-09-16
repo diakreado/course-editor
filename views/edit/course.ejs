@@ -24,12 +24,12 @@
                 <textarea class="form-control" name="discripiton" id="discripitonOfCourse" rows="3"><%= course.discripiton %></textarea>
             </div>
             <div>
-                <label for="file"> <strong>Логотип:</strong>
+                <label for="imageFile"> <strong>Логотип:</strong>
                     <br>
                     <img src="/uploads/<%= course.logo %>" height="150">
                     <br>
                     <br>
-                    <input type="file" name="file" id="file" required />
+                    <input type="file" name="file" id="imageFile"/>
                     <br>
                 </label>
             </div>
@@ -92,18 +92,13 @@
             <input id="courseId" name="id" type="hidden" value="<%= course.id %>">
     </div>
     <hr>
-    <p>
-        <a href="/create/lesson/<%= course.id %>">
-            <button class="btn btn-primary">Создать урок</button>
-        </a> 
-    </p>
     <ul>
         <% lessons.forEach(function(lesson) { %>
             <li>
                 <h4>
                     <b>
                         <a href="/edit/lesson/<%= lesson.id %>">
-                            <%= lesson.title %>
+                        <%= lesson.number %>. <%= lesson.title %>
                         </a>
                     </b>
                 </h4>
@@ -114,4 +109,9 @@
             </li>
             <% }); %>
     </ul>
+    <p>
+        <a href="/create/lesson/<%= course.id %>">
+            <button class="btn btn-primary">Создать урок</button>
+        </a> 
+    </p>
     <% include ../layout/footer %>

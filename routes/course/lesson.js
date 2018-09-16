@@ -4,8 +4,8 @@ const models = require("../../models");
 
 /* GET lesson */
 router.get("/:lessonId", async (req, res, next) => {
-  const id = req.session.userId;
-  const login = req.session.userLogin;
+  const userId = req.session.userId;
+  const userLogin = req.session.userLogin;
 
   const lessonId = req.params.lessonId;
 
@@ -33,8 +33,8 @@ router.get("/:lessonId", async (req, res, next) => {
         title: course.title,
         course,
         user: {
-          id,
-          login
+          id: userId,
+          login: userLogin
         },
         lesson,
         tasks

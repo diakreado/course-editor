@@ -6,7 +6,6 @@ $(function() {
     var data = {
       title: $("#nameOfCourse").val(),
       discripiton: $("#discripitonOfCourse").val(),
-      logo: $("#logoFile").val(),
       complexity: $("form")[0]["complexityOfCurse"].value,
       category: $("#categoryOfCurse").val(),
       authors: $("#authorsOfCourse").val(),
@@ -77,7 +76,6 @@ $(function() {
       title: $("#nameOfLesson").val(),
       number: $("#numberOfLesson").val(),
       discripiton: $("#discripitonOfLesson").val(),
-      logo: $("#logoFile").val(),
       duration: $("#durationOfLesson").val(),
       courseId: $("#courseId").val(),
       id: $("#lessonId").val()
@@ -104,8 +102,6 @@ $(function() {
       number: $("#idOfTask").val(),
       instructions: $("#instructionsOfTask").val(),
       text: $("#textOfTask").val(),
-      sound: $("#soundFile").val(),
-      pitch: $("#pitchFile").val(),
       id: $("#taskId").val()
     };
 

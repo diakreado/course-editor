@@ -25,7 +25,7 @@ router.get("/:lessonId", async (req, res, next) => {
       res.redirect("/");
     } else {
       const tasks = await models.Task.find({ lesson: lesson.id }).sort({
-        createdAt: -1
+        number: 1
       });
       const title = "Редактирование урока";
 
@@ -55,12 +55,7 @@ router.post("/", async (req, res, next) => {
   } else if (!userLogin || !userId || userId != course.owner) {
     res.redirect("/");
   } else {
-    let { title, number, discripiton, logo, duration } = req.body;
-
-    if (logo == "") {
-      logo = course.logo;
-    }
-
+    const { title, number, discripiton, duration } = req.body;
     const newLesson = await models.Lesson.findOneAndUpdate(
       {
         _id: lesson.id,
@@ -70,7 +65,6 @@ router.post("/", async (req, res, next) => {
         title,
         number,
         discripiton,
-        logo,
         duration
       },
       { new: true }

@@ -53,7 +53,6 @@ $(function() {
       title: $("#nameOfLesson").val(),
       number: $("#numberOfLesson").val(),
       discripiton: $("#discripitonOfLesson").val(),
-      logo: $("#logoFile").val(),
       duration: $("#durationOfLesson").val(),
       id: $("#courseId").val()
     };

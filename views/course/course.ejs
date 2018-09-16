@@ -12,7 +12,7 @@
     <p>
         <% if(user.id && user.login && user.id == course.owner) { %>
             <a href="/edit/course/<%= course.id %>">
-                <button class="btn btn-primary add-new-project">Редактировать</button>
+                <button class="btn btn-primary">Редактировать</button>
             </a>
             <% } %>
     </p>
@@ -51,7 +51,7 @@
                         <h4>
                             <b>
                                 <a href="/lesson/<%= lesson.id %>">
-                                    <%= lesson.title %>
+                                    <%= lesson.number %>. <%= lesson.title %>
                                 </a>
                             </b>
                         </h4>
