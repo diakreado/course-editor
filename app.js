@@ -12,7 +12,7 @@ const auth = require("./routes/auth");
 const course = require("./routes/course/course");
 const lesson = require("./routes/course/lesson");
 const task = require("./routes/course/task");
-const uploads = require("./routes/uploads");
+const upload = require("./routes/upload");
 const myCourses = require("./routes/my-courses");
 
 const staticAsset = require("static-asset");
@@ -50,6 +50,7 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(staticAsset(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "public")));
+app.use("/uploads", express.static(path.join(__dirname, config.DESTINATION)));
 
 app.use(
   session({
@@ -69,7 +70,7 @@ app.use("/auth", auth);
 app.use("/course", course);
 app.use("/lesson", lesson);
 app.use("/task", task);
-app.use("/uploads", uploads);
+app.use("/upload", upload);
 app.use("/my-courses", myCourses);
 
 /// catch 404 and forwarding to error handler

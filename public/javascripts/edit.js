@@ -7,7 +7,7 @@ $(function() {
       title: $("#nameOfCourse").val(),
       discripiton: $("#discripitonOfCourse").val(),
       logo: $("#logoFile").val(),
-      complexity: $("form")[1]["complexityOfCurse"].value,
+      complexity: $("form")[0]["complexityOfCurse"].value,
       category: $("#categoryOfCurse").val(),
       authors: $("#authorsOfCourse").val(),
       published: $("#published").is(":checked"),

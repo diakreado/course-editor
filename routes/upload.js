@@ -1,21 +1,45 @@
 const express = require("express");
 const router = express.Router();
 const path = require("path");
-
 const multer = require("multer");
+
+const config = require("../config");
+const models = require("../models");
 
 const storage = multer.diskStorage({
   destination: (req, file, cd) => {
-    cd(null, "uploads");
+    cd(null, config.DESTINATION);
   },
-  filename: (req, file, cd) => {
-    cd(null, Date.now() + path.extname(file.originalname));
+  filename: async (req, file, cd) => {
+    const userLogin = req.session.userLogin;
+    const userId = req.session.userId;
+
+    const courseId = req.body.courseId;
+    const course = await models.Course.findById(courseId);
+
+    if (!course) {
+      var err = new Error("Not Found");
+      err.status = 404;
+      next(err);
+    } else if (!userLogin || !userId || userId != course.owner) {
+      res.redirect("/");
+    } else {
+      const filePath = Date.now() + path.extname(file.originalname);
+      const newCourse = await models.Course.findOneAndUpdate(
+        {
+          _id: course.id,
+          owner: userId
+        },
+        {
+          logo: filePath
+        },
+        { new: true }
+      );
+
+      cd(null, filePath);
+    }
   }
 });
-
-//   filename: (req, file, cb) => {
-//     cb(null, file.fieldname + "-" + Date.now());
-//   }
 
 const upload = multer({
   storage,

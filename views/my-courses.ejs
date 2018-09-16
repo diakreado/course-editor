@@ -16,23 +16,28 @@
     <div class="modal-body">
         <div class="first-column">
         <% if (courses.length != 0) { %>
-            <ul>
                 <% courses.forEach(function(course) { %>
-                    <li>
+                    <div class="row" style="padding-bottom:5px;">      
+                        <div class="col-md-2">   
+                            <a href="course/<%= course.id %>">                
+                                <img src="/uploads/<%= course.logo %>" height="80">
+                            </a>
+                        </div>         
+                        <div class="col-md-10">                   
                         <h4>
-                            <b>
-                                <a href="/course/<%= course.id  %>">
-                                    <%= course.title %>
-                                </a>
-                            </b>
-                        </h4>
-                        <p>
-                            <strong>Краткое описание: </strong>
-                            <%= course.discripiton.substring(0, 100)%>...
-                        </p>
-                    </li>
-                    <% }); %>
-            </ul>
+                                <b>
+                                    <a href="course/<%= course.id %>">
+                                        <%= course.title %>
+                                    </a>
+                                </b>
+                            </h4>
+                            <p>
+                                <strong>Краткое описание: </strong>
+                                <%= course.discripiton.substring(0, 100)%>...
+                            </p>
+                        </div>         
+                    </div>
+                <% }); %>
             <% } else  { %>
                 Сожалею, но вы не создали ни одного проекта.
             <% } %>

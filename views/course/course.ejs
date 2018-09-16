@@ -38,6 +38,13 @@
                 <strong>Создан: </strong>
                 <%= course.createdAt %>
             </p>
+            <div>
+                <label for="file"> <strong>Логотип:</strong>
+                    <br>
+                    <img src="/uploads/<%= course.logo %>" height="150">
+                    <br>
+                </label>
+            </div>
             <ul>
                 <% lessons.forEach(function(lesson) { %>
                     <li>
