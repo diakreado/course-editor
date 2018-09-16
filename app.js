@@ -12,6 +12,7 @@ const auth = require("./routes/auth");
 const course = require("./routes/course/course");
 const lesson = require("./routes/course/lesson");
 const task = require("./routes/course/task");
+const uploads = require("./routes/uploads");
 const myCourses = require("./routes/my-courses");
 
 const staticAsset = require("static-asset");
@@ -68,6 +69,7 @@ app.use("/auth", auth);
 app.use("/course", course);
 app.use("/lesson", lesson);
 app.use("/task", task);
+app.use("/uploads", uploads);
 app.use("/my-courses", myCourses);
 
 /// catch 404 and forwarding to error handler

@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-const config = require("../config.js");
-
 const models = require("../models");
 
 /* GET home page. */
