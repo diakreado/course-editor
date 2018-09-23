@@ -5,7 +5,7 @@ $(function() {
 
     var data = {
       title: $("#nameOfCourse").val(),
-      discripiton: $("#discripitonOfCourse").val(),
+      description: $("#descriptionOfCourse").val(),
       complexity: $("form")[0]["complexityOfCurse"].value,
       category: $("#categoryOfCurse").val(),
       authors: $("#authorsOfCourse").val(),
@@ -75,7 +75,7 @@ $(function() {
     var data = {
       title: $("#nameOfLesson").val(),
       number: $("#numberOfLesson").val(),
-      discripiton: $("#discripitonOfLesson").val(),
+      description: $("#descriptionOfLesson").val(),
       duration: $("#durationOfLesson").val(),
       courseId: $("#courseId").val(),
       id: $("#lessonId").val()
@@ -88,6 +88,7 @@ $(function() {
       url: "/edit/lesson"
     }).done(function(data) {
       if (!data.ok) {
+        console.log(data.error);
       } else {
         location.reload();
       }

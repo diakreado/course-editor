@@ -15,4 +15,8 @@ $(function() {
   }).done(function(data) {
     wavesurfer.load("../../uploads/" + data.path);
   });
+
+  $(".play-button").on("click", function(e) {
+    wavesurfer.playPause();
+  });
 });

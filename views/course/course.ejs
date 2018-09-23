@@ -2,12 +2,12 @@
     <h3>
         Курс:
         <b>
-            <%= course.title %>
+            <%= course.title %> 
         </b>
         <% if(!course.published) { %> (не опубликовано) <% } %>
     </h3>
     <p>
-        <a href="/">На главную</a>
+        <a href="/">На главную</a> &nbsp &nbsp <a href="/course/json/<%= course.id %>">JSON</a>
     </p>
     <p>
         <% if(user.id && user.login && user.id == course.owner) { %>
@@ -20,7 +20,7 @@
         <div class="first-column">
             <p>
                 <strong>Описание: </strong>
-                <%= course.discripiton %>
+                <%= course.description %>
             </p>
             <p>
                 <strong>Сложность: </strong>
@@ -45,6 +45,7 @@
                     <br>
                 </label>
             </div>
+            <hr>
             <ul>
                 <% lessons.forEach(function(lesson) { %>
                     <li>
@@ -57,7 +58,7 @@
                         </h4>
                         <p>
                             <strong>Краткое описание: </strong>
-                            <%= lesson.discripiton.substring(0, 100)%>...
+                            <%= lesson.description.substring(0, 100)%>...
                         </p>
                     </li>
                     <% }); %>

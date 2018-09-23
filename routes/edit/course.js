@@ -52,7 +52,7 @@ router.post("/", async (req, res, next) => {
   } else {
     let {
       title,
-      discripiton,
+      description,
       complexity,
       category,
       authors,
@@ -66,7 +66,7 @@ router.post("/", async (req, res, next) => {
       },
       {
         title,
-        discripiton,
+        description,
         complexity,
         category,
         authors,

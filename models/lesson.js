@@ -14,7 +14,7 @@ const lessonSchema = new Schema(
       type: String,
       required: true
     },
-    discripiton: {
+    description: {
       type: String
     },
     logo: {

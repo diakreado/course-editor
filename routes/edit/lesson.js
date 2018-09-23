@@ -55,17 +55,15 @@ router.post("/", async (req, res, next) => {
   } else if (!userLogin || !userId || userId != course.owner) {
     res.redirect("/");
   } else {
-    const { title, number, discripiton, duration } = req.body;
+    const { title, number, description, duration } = req.body;
+
     const newLesson = await models.Lesson.findOneAndUpdate(
+      { _id: lesson.id },
       {
-        _id: lesson.id,
-        curse: course.id
-      },
-      {
-        title,
-        number,
-        discripiton,
-        duration
+        title: title,
+        number: number,
+        description: description,
+        duration: duration
       },
       { new: true }
     );

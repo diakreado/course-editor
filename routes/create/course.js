@@ -27,7 +27,7 @@ router.post("/", async (req, res) => {
   } else {
     const {
       title,
-      discripiton,
+      description,
       logo,
       complexity,
       category,
@@ -37,7 +37,7 @@ router.post("/", async (req, res) => {
 
     if (
       !title ||
-      !discripiton ||
+      !description ||
       !logo ||
       !complexity ||
       !category ||
@@ -45,7 +45,7 @@ router.post("/", async (req, res) => {
     ) {
       const fields = [];
       if (!title) fields.push("title");
-      if (!discripiton) fields.push("discripiton");
+      if (!description) fields.push("description");
       if (!logo) fields.push("logo");
       if (!complexity) fields.push("complexity");
       if (!category) fields.push("category");
@@ -59,7 +59,7 @@ router.post("/", async (req, res) => {
     } else {
       const curse = await models.Course.create({
         title,
-        discripiton,
+        description,
         logo,
         complexity,
         category,
